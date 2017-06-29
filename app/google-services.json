@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "533699077959",
+    "firebase_url": "https://banaaosession.firebaseio.com",
+    "project_id": "banaaosession",
+    "storage_bucket": "banaaosession.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:533699077959:android:412a98af3a32ad05",
+        "android_client_info": {
+          "package_name": "com.example.krishnapandey.banaaosession"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "533699077959-dpo5termia85095t663cdm1hvpri3l5a.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDrrWLtO6cPT4YffWyOG6IcOOlyc6SwUlk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
