@@ -1,13 +1,18 @@
 package com.example.krishnapandey.banaaosession;
 
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
+
+import java.util.Calendar;
 
 
 public class NewSession extends AppCompatActivity {
@@ -15,6 +20,7 @@ public class NewSession extends AppCompatActivity {
     private TextView from_button;
     private TextView to_button;
     private boolean flag;
+    private boolean time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,19 +39,23 @@ public class NewSession extends AppCompatActivity {
         from_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag = true;
-                startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                //flag = true;
+                //startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                setTime(true);
+
 
             }
         });
         to_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                flag = false;
-                startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                //flag = false;
+                //startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                setTime(false);
             }
         });
     }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -64,5 +74,25 @@ public class NewSession extends AppCompatActivity {
             }
 
         }
+    }
+
+    public void setTime(final boolean time) {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+        int minute = mcurrentTime.get(Calendar.MINUTE);
+        TimePickerDialog mTimePicker;
+        mTimePicker = new TimePickerDialog(NewSession.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                if (time) {
+                    from_button.setText( selectedHour + ":" + selectedMinute);
+                } else {
+                    to_button.setText( selectedHour + ":" + selectedMinute);
+                }
+            }
+        }, hour, minute, true);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+
     }
 }
