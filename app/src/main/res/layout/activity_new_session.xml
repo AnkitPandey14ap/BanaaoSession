@@ -3,13 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="fill_parent"
     tools:context="com.example.krishnapandey.banaaosession.NewSession">
 
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_marginTop="@dimen/activity_vertical_margin"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin">
@@ -26,18 +26,36 @@
                 android:paddingLeft="8dp"/>
         </android.support.design.widget.TextInputLayout>
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_margin="8dp"
             android:layout_marginTop="8dp">
-            <EditText android:id="@+id/input_time"
-                android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/from_button"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:inputType="time"
-                android:hint="Duration"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
+                android:layout_weight="1"
+                android:text="From : "
+                android:textSize="20sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/to_button"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="To : "
+                android:textSize="20sp"
+                android:textStyle="bold"/>
 
+        </LinearLayout>
+<!--
+        <TimePicker
+            android:id="@+id/timePicker1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+-->
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -78,23 +96,26 @@
                 android:paddingLeft="8dp"/>
         </android.support.design.widget.TextInputLayout>
 
-        <Button
-            android:id="@+id/btn_login"
-            android:layout_width="fill_parent"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:layout_marginBottom="24dp"
-            android:padding="12dp"
-            android:text="Done"/>
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+            <Button
+                android:id="@+id/btn_cacel"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="cancel"
+                android:layout_weight="1"/>
+            <Button
+                android:id="@+id/btn_ok"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:layout_weight="1"/>
 
-        <TextView android:id="@+id/link_signup"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            android:text="cancel the session"
-            android:gravity="center"
-            android:textSize="16dip"
-            android:clickable="true"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 </ScrollView>
