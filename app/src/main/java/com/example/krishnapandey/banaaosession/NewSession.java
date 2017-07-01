@@ -7,11 +7,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 
@@ -22,6 +25,9 @@ public class NewSession extends AppCompatActivity {
     private boolean flag;
     private boolean time;
 
+    private ListView list_view;
+
+    ArrayList<String> list;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,25 +60,48 @@ public class NewSession extends AppCompatActivity {
                 setTime(false);
             }
         });
+/*
+        String[] myStringArray = new String[4];
+        myStringArray[0] = "ankit";
+        myStringArray[1] = "pandey";
+        myStringArray[2] = "mayank";
+        myStringArray[3] = "shah";
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, myStringArray);
+
+        list_view = (ListView) findViewById(R.id.list_view);
+        list_view.setAdapter(adapter);*/
+
+        list = new ArrayList<String>();
+        list.add("item1");
+        list.add("item2");
+
+        //instantiate custom adapter
+        MyCustomAdapter adapter = new MyCustomAdapter(list, this);
+
+        //handle listview and assign adapter
+        ListView lView = (ListView)findViewById(R.id.list_view);
+        lView.setAdapter(adapter);
+
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        MyCustomAdapter adapter = new MyCustomAdapter(list, this);
 
+        //handle listview and assign adapter
+        ListView lView = (ListView)findViewById(R.id.list_view);
+        lView.setAdapter(adapter);
+
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 2) {
-            String hour = data.getStringExtra("HOUR");
-            String min = data.getStringExtra("MINUTE");
-
-            if(flag){
-                from_button.setText("From : "+hour+":"+min);
-                flag = false;
-                return;
-            }else {
-                to_button.setText("To : "+hour+":"+min);
-                return;
-            }
-
+            String name = data.getStringExtra("NAME");
+            list.add(name);
         }
     }
 
