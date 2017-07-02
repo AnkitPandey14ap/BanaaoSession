@@ -1,27 +1,35 @@
 {
   "project_info": {
-    "project_number": "533699077959",
-    "firebase_url": "https://banaaosession.firebaseio.com",
-    "project_id": "banaaosession",
-    "storage_bucket": "banaaosession.appspot.com"
+    "project_number": "195942772077",
+    "firebase_url": "https://banaaosession-5723f.firebaseio.com",
+    "project_id": "banaaosession-5723f",
+    "storage_bucket": "banaaosession-5723f.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:533699077959:android:412a98af3a32ad05",
+        "mobilesdk_app_id": "1:195942772077:android:412a98af3a32ad05",
         "android_client_info": {
           "package_name": "com.example.krishnapandey.banaaosession"
         }
       },
       "oauth_client": [
         {
-          "client_id": "533699077959-dpo5termia85095t663cdm1hvpri3l5a.apps.googleusercontent.com",
+          "client_id": "195942772077-ht19dn6rrpg0i3sl2tcvpeci3f2icn2n.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.krishnapandey.banaaosession",
+            "certificate_hash": "6cf25c95775d804f98175f41399b1ef725158a77"
+          }
+        },
+        {
+          "client_id": "195942772077-jia985su962mlnttuie40fo55r56h6fm.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDrrWLtO6cPT4YffWyOG6IcOOlyc6SwUlk"
+          "current_key": "AIzaSyCUupJR1xePUuCUImmPz_z4f4wWazw8da4"
         }
       ],
       "services": {
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "195942772077-jia985su962mlnttuie40fo55r56h6fm.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

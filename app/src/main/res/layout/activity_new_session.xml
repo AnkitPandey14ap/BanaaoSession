@@ -1,18 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
+    android:orientation="vertical"
+    android:layout_margin="@dimen/activity_vertical_margin"
     tools:context="com.example.krishnapandey.banaaosession.NewSession">
-
-    <LinearLayout
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="fill_parent"
-        android:layout_marginTop="@dimen/activity_vertical_margin"
-        android:layout_marginLeft="@dimen/activity_horizontal_margin"
-        android:layout_marginRight="@dimen/activity_horizontal_margin">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -25,8 +19,32 @@
                 android:inputType="text"
                 android:paddingLeft="8dp"/>
         </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp">
+        <EditText android:id="@+id/input_location"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:hint="Location"
+            android:paddingLeft="8dp"/>
+    </android.support.design.widget.TextInputLayout>
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp">
+        <EditText android:id="@+id/input_topic"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textEmailAddress"
+            android:hint="Topic"
+            android:paddingLeft="8dp"/>
+    </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
+    <!--Duration-->
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -49,81 +67,47 @@
                 android:textSize="20sp"
                 android:textStyle="bold"/>
 
-        </LinearLayout>
-<!--
-        <TimePicker
-            android:id="@+id/timePicker1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
--->
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_location"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="Location"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
+    </LinearLayout>
+    <View style="@style/Divider"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
 
-        <ListView
+    <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="40dp">
 
-        </ListView>
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
-            <EditText android:id="@+id/input_topic"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="textEmailAddress"
-                android:hint="Topic"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
+    </ListView>
+    <View style="@style/Divider"
+        android:layout_marginBottom="@dimen/activity_vertical_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
-        <!--  Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/input_students_detial"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:inputType="text"
-                android:hint="Stduents detail"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
 
-        <LinearLayout
+    <Button android:id="@+id/add_student_action"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="text"
+        android:text="Add Student"
+        android:paddingLeft="8dp"/>
+
+    <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal">
             <Button
-                android:id="@+id/btn_cacel"
+                android:id="@+id/cancel_action"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="cancel"
                 android:layout_weight="1"/>
             <Button
-                android:id="@+id/btn_ok"
+                android:id="@+id/ok_action"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:text="Done"
                 android:layout_weight="1"/>
-
-
         </LinearLayout>
-
-    </LinearLayout>
-</ScrollView>
+</LinearLayout>

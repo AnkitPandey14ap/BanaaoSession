@@ -168,8 +168,8 @@ public class RegisterActivity extends AppCompatActivity {
         UserInformation userInformation = new UserInformation(name, phone, usercode);
 
         FirebaseUser user = mAuth.getCurrentUser();
-        databaseReference.child(user.getUid()).setValue(userInformation);
-
+        //databaseReference.child(user.getUid()).setValue(userInformation);
+        databaseReference.child(user.getUid()).push().setValue(userInformation);
         Toast.makeText(this, "data saved", Toast.LENGTH_SHORT).show();
     }
 
