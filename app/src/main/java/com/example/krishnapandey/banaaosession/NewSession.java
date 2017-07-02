@@ -175,9 +175,10 @@ public class NewSession extends AppCompatActivity {
             String name = data.getStringExtra("NAME");
             list.add(name);
             studentList.put(name, name);
-            MyCustomAdapter adapter = new MyCustomAdapter(list, this);
+            /*MyCustomAdapter adapter = new MyCustomAdapter(list, this);
             ListView lView = (ListView)findViewById(R.id.list_view);
             lView.setAdapter(adapter);
+*/
 
         }
     }
