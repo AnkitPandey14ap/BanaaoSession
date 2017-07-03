@@ -1,4 +1,4 @@
-package com.example.krishnapandey.banaaosession;
+package com.example.krishnapandey.banaaosession.DataClasses;
 
 /**
  * Created by krishna pandey on 29-06-2017.

@@ -1,4 +1,4 @@
-package com.example.krishnapandey.banaaosession;
+package com.example.krishnapandey.banaaosession.Activities;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
+
+import com.example.krishnapandey.banaaosession.R;
 
 /**
  * Created by krishna pandey on 30-06-2017.

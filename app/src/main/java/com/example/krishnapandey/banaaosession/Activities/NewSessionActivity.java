@@ -1,4 +1,4 @@
-package com.example.krishnapandey.banaaosession;
+package com.example.krishnapandey.banaaosession.Activities;
 
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,8 +15,13 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.krishnapandey.banaaosession.Adapters.MyCustomAdapter;
+import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.example.krishnapandey.banaaosession.R;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -24,7 +30,7 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 
-public class NewSession extends AppCompatActivity {
+public class NewSessionActivity extends AppCompatActivity {
     private TimePicker timePicker1;
 
     private TextView from_button;
@@ -73,7 +79,7 @@ public class NewSession extends AppCompatActivity {
         add_student_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                startActivityForResult(new Intent(NewSessionActivity.this,Pop.class),5);
             }
         });
 
@@ -83,7 +89,7 @@ public class NewSession extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //flag = false;
-                //startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                //startActivityForResult(new Intent(NewSessionActivity.this,Pop.class),5);
                 setTime(false);
             }
         });
@@ -91,7 +97,7 @@ public class NewSession extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //flag = true;
-                //startActivityForResult(new Intent(NewSession.this,Pop.class),5);
+                //startActivityForResult(new Intent(NewSessionActivity.this,Pop.class),5);
                 setTime(true);
 
 
@@ -121,7 +127,7 @@ public class NewSession extends AppCompatActivity {
 
     private void getDetail() {
         if (studentList.size() == 0) {
-            Toast.makeText(NewSession.this, "Add some students first", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NewSessionActivity.this, "Add some students first", Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -162,9 +168,39 @@ public class NewSession extends AppCompatActivity {
 
         //FirebaseUser user = mAuth.getCurrentUser();
         //databaseReference.child(user.getUid()).setValue(sessionInformation);
-        databaseReference.child(name).setValue(sessionInformation);
+        databaseReference.child("session").child(name).setValue(sessionInformation);
 
-        Toast.makeText(this, "Succesfull", Toast.LENGTH_SHORT).show();
+        databaseReference.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                progressDialog.hide();
+                
+                Toast.makeText(NewSessionActivity.this, "succesfull", Toast.LENGTH_SHORT).show();
+
+                Log.i("Ankit", "String is " + s);
+            }
+
+            @Override
+            public void onChildChanged(DataSnapshot dataSnapshot, String s) {
+                Toast.makeText(NewSessionActivity.this, "updaetd", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onChildRemoved(DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(DataSnapshot dataSnapshot, String s) {
+
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Toast.makeText(NewSessionActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+
+            }
+        });
 
     }
 
@@ -188,7 +224,7 @@ public class NewSession extends AppCompatActivity {
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
         TimePickerDialog mTimePicker;
-        mTimePicker = new TimePickerDialog(NewSession.this, new TimePickerDialog.OnTimeSetListener() {
+        mTimePicker = new TimePickerDialog(NewSessionActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 if (time) {

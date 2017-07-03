@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.example.krishnapandey.banaaosession.LoginActivity">
+    tools:context="com.example.krishnapandey.banaaosession.Activities.LoginActivity">
 
     <LinearLayout
         android:orientation="vertical"

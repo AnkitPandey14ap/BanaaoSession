@@ -6,7 +6,7 @@
     android:layout_height="fill_parent"
     android:orientation="vertical"
     android:layout_margin="@dimen/activity_vertical_margin"
-    tools:context="com.example.krishnapandey.banaaosession.NewSession">
+    tools:context="com.example.krishnapandey.banaaosession.Activities.NewSessionActivity">
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
