@@ -47,6 +47,7 @@ public class NewSessionActivity extends AppCompatActivity {
 
 
     private ListView list_view;
+    private MyCustomAdapter adapter;
 
     ArrayList<String> list;
     private HashMap<String, String> studentList;
@@ -106,7 +107,7 @@ public class NewSessionActivity extends AppCompatActivity {
         });
 
         //instantiate custom adapter
-        MyCustomAdapter adapter = new MyCustomAdapter(list, this);
+        adapter = new MyCustomAdapter(list, this);
 
         //handle listview and assign adapter
         lView.setAdapter(adapter);
@@ -123,6 +124,14 @@ public class NewSessionActivity extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
         mAuth = FirebaseAuth.getInstance();
         databaseReference = FirebaseDatabase.getInstance().getReference();
+
+        cancel_action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(NewSessionActivity.this,ProfileActivity.class));
+                finish();
+            }
+        });
     }
 
     private void getDetail() {
@@ -210,11 +219,27 @@ public class NewSessionActivity extends AppCompatActivity {
         if (resultCode == 2) {
             String name = data.getStringExtra("NAME");
             list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
+            list.add(name);
             studentList.put(name, name);
+
             /*MyCustomAdapter adapter = new MyCustomAdapter(list, this);
             ListView lView = (ListView)findViewById(R.id.list_view);
             lView.setAdapter(adapter);
 */
+            adapter.notifyDataSetChanged();
+
 
         }
     }
@@ -239,5 +264,12 @@ public class NewSessionActivity extends AppCompatActivity {
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(NewSessionActivity.this,ProfileActivity.class));
+        finish();
     }
 }

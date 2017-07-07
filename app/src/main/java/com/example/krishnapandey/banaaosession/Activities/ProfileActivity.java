@@ -33,20 +33,21 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this,NewSessionActivity.class));
-                //finish();
+                finish();
             }
         });
         button_my_session.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this,MySessionActivity.class));
-                //finish();
+                finish();
             }
         });
         button_completed_session.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this,CompletedSessionActivity.class));
+                finish();
             }
         });
 

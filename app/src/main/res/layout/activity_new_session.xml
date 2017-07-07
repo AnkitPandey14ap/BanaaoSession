@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="fill_parent"
     android:orientation="vertical"
-    android:layout_margin="@dimen/activity_vertical_margin"
     tools:context="com.example.krishnapandey.banaaosession.Activities.NewSessionActivity">
 
         <android.support.design.widget.TextInputLayout
+            android:id="@+id/input_Session_name1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp">
@@ -20,10 +20,12 @@
                 android:paddingLeft="8dp"/>
         </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_location1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="8dp"
+        android:layout_below="@id/input_Session_name1">
         <EditText android:id="@+id/input_location"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,9 +34,11 @@
             android:paddingLeft="8dp"/>
     </android.support.design.widget.TextInputLayout>
     <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_topic1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp">
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/input_location1">
         <EditText android:id="@+id/input_topic"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,11 +49,13 @@
 
     <!--Duration-->
     <LinearLayout
+        android:id="@+id/linear_layout_text_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_margin="8dp"
-            android:layout_marginTop="8dp">
+            android:layout_marginTop="8dp"
+        android:layout_below="@+id/input_topic1">
             <TextView
                 android:id="@+id/from_button"
                 android:layout_width="0dp"
@@ -69,20 +75,24 @@
 
     </LinearLayout>
     <View style="@style/Divider"
+        android:id="@+id/divider1"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/linear_layout_text_view"/>
 
 
     <ListView
             android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="40dp">
+        android:layout_below="@+id/divider1">
 
     </ListView>
     <View style="@style/Divider"
+        android:id="@+id/divider2"
         android:layout_marginBottom="@dimen/activity_vertical_margin"
-        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_below="@+id/list_view"/>
 
 
     <Button android:id="@+id/add_student_action"
@@ -90,9 +100,11 @@
         android:layout_height="wrap_content"
         android:inputType="text"
         android:text="Add Student"
-        android:paddingLeft="8dp"/>
+        android:paddingLeft="8dp"
+        android:layout_above="@+id/linear_layout_button"/>
 
     <LinearLayout
+        android:id="@+id/linear_layout_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -110,4 +122,4 @@
                 android:text="Done"
                 android:layout_weight="1"/>
         </LinearLayout>
-</LinearLayout>
+</RelativeLayout>
