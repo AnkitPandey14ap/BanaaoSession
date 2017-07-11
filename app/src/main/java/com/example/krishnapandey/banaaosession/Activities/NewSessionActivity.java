@@ -218,20 +218,6 @@ public class NewSessionActivity extends AppCompatActivity {
        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 2) {
             String name = data.getStringExtra("NAME");
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
-            list.add(name);
             studentList.put(name, name);
 
             /*MyCustomAdapter adapter = new MyCustomAdapter(list, this);

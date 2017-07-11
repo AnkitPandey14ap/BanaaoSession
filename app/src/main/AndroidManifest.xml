@@ -5,11 +5,16 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <!-- To auto-complete the email text field in the login form with the user's emails
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <!--
+     To auto-complete the email text field in the login form with the user's emails
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.READ_PROFILE" />
-    <uses-permission android:name="android.permission.READ_CONTACTS" /> -->
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    -->
     <application
         android:allowBackup="true"
         android:icon="@drawable/banaao_icon"
@@ -17,28 +22,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Activities.LoginActivity"
+        <activity
+            android:name=".Activities.LoginActivity"
             android:label="Banaao Session">
+
+        </activity>
+        <activity
+            android:name=".Activities.RegisterActivity"
+            android:label="Register" />
+        <activity
+            android:name=".Activities.ProfileActivity"
+            android:label="Banaao Session" />
+        <activity
+            android:name=".Activities.NewSessionActivity"
+            android:label="Create New Session" />
+        <activity
+            android:name=".Activities.Pop"
+            android:theme="@style/AppTheme.CustomeTheme" />
+        <activity
+            android:name=".Activities.MySessionActivity"
+            android:label="All Sessions" />
+        <activity
+            android:name=".Activities.CompletedSessionActivity"
+            android:label="Completed Session" />
+        <activity android:name=".Activities.UpdateActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".Activities.RegisterActivity"
-            android:label="Register" />
-        <activity android:name=".Activities.ProfileActivity"
-            android:label="Banaao Session"></activity>
-        <activity android:name=".Activities.NewSessionActivity"
-            android:label="Create New Session"></activity>
-        <activity
-            android:name=".Activities.Pop"
-            android:theme="@style/AppTheme.CustomeTheme" />
-        <activity android:name=".Activities.MySessionActivity"
-            android:label="All Sessions"></activity>
-        <activity android:name=".Activities.CompletedSessionActivity"
-            android:label="Completed Session"></activity>
     </application>
 
 </manifest>
