@@ -191,7 +191,7 @@ public class NewSessionActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(DataSnapshot dataSnapshot, String s) {
-                Toast.makeText(NewSessionActivity.this, "updaetd", Toast.LENGTH_SHORT).show();
+                Toast.makeText(NewSessionActivity.this, "updated", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -217,8 +217,8 @@ public class NewSessionActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 2) {
-            String name = data.getStringExtra("NAME");
-            studentList.put(name, name);
+            String usercode = data.getStringExtra("NAME");
+            studentList.put(usercode, usercode);
 
             /*MyCustomAdapter adapter = new MyCustomAdapter(list, this);
             ListView lView = (ListView)findViewById(R.id.list_view);

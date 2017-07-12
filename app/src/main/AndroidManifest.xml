@@ -25,7 +25,11 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:label="Banaao Session">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.RegisterActivity"
@@ -46,11 +50,7 @@
             android:name=".Activities.CompletedSessionActivity"
             android:label="Completed Session" />
         <activity android:name=".Activities.UpdateActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 

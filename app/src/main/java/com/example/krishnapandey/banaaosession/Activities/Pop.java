@@ -14,6 +14,8 @@ import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.R;
 
+import java.util.concurrent.Callable;
+
 /**
  * Created by krishna pandey on 30-06-2017.
  */
@@ -64,7 +66,7 @@ public class Pop extends Activity {
 
                 if (TextUtils.isEmpty(name)) {
                     input_name.setError("Enter your full name");
-                    Toast.makeText(Pop.this, "enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Pop.this, "enter name", Toast.LENGTH_SHORT).show();
                     input_name.requestFocus();
                     return;
                 }
@@ -77,7 +79,7 @@ public class Pop extends Activity {
                 }
                 if (TextUtils.isEmpty(usercode)) {
                     input_usercode.setError("Enter the usercode");
-                    Toast.makeText(Pop.this, "enter email", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Pop.this, "enter usercoode", Toast.LENGTH_SHORT).show();
                     input_usercode.requestFocus();
                     return;
                 }
@@ -102,6 +104,7 @@ public class Pop extends Activity {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+
         return super.onTouchEvent(event);
     }
 }

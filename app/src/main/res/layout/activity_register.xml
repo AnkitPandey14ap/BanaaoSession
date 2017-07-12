@@ -34,7 +34,8 @@
                 android:layout_height="wrap_content"
                 android:inputType="phone"
                 android:hint="Mobile number"
-                android:paddingLeft="8dp"/>
+                android:paddingLeft="8dp"
+                android:ems="10"/>
         </android.support.design.widget.TextInputLayout>
 
 
