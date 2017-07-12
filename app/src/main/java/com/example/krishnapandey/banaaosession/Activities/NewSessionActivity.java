@@ -217,13 +217,15 @@ public class NewSessionActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == 2) {
-            String usercode = data.getStringExtra("NAME");
-            studentList.put(usercode, usercode);
+            String name = data.getStringExtra("NAME");
+            studentList.put(name, name);
+            list = new ArrayList<>(studentList.values());
 
-            /*MyCustomAdapter adapter = new MyCustomAdapter(list, this);
+            Log.i("Ankit","here "+name );
+
+            adapter = new MyCustomAdapter(list, this);
             ListView lView = (ListView)findViewById(R.id.list_view);
             lView.setAdapter(adapter);
-*/
             adapter.notifyDataSetChanged();
 
 

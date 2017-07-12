@@ -1,6 +1,7 @@
 package com.example.krishnapandey.banaaosession.Adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,9 @@ private Context context;
 
 
 public MyCustomAdapter(ArrayList<String> list, Context context) { 
-    this.list = list; 
-    this.context = context; 
+    this.list = list;
+    Log.i("Ankit", "Size " + list.size());
+    this.context = context;
 } 
 
 @Override
@@ -53,7 +55,8 @@ public View getView(final int position, View convertView, ViewGroup parent) {
 
     //Handle TextView and display string from your list
     TextView listItemText = (TextView)view.findViewById(R.id.list_item_string);
-    listItemText.setText(list.get(position)); 
+    listItemText.setText(list.get(position));
+    Log.i("Ankit","name" +list.get(position));
 
     //Handle buttons and add onClickListeners
     ImageView deleteBtn = (ImageView)view.findViewById(R.id.delete_btn);
