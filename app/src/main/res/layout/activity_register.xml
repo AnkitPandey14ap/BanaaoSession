@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorBackground"
     tools:context="com.example.krishnapandey.banaaosession.Activities.RegisterActivity">
 
     <LinearLayout
@@ -11,90 +12,65 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingLeft="24dp"
-        android:paddingRight="24dp">
+        android:paddingRight="24dp"
+        android:layout_marginTop="@dimen/activity_vertical_margin">
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
             <EditText android:id="@+id/input_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:hint="Full Name"
                 android:inputType="text"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
+                android:paddingLeft="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
             <EditText android:id="@+id/input_phone_no"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:inputType="phone"
                 android:hint="Mobile number"
                 android:paddingLeft="8dp"
-                android:ems="10"/>
-        </android.support.design.widget.TextInputLayout>
-
-
-        <!--  Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+                android:ems="10"
+                android:textStyle="bold"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
             <EditText android:id="@+id/input_usercode"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:inputType="number"
                 android:hint="User code"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <!--  Email Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp">
+                android:paddingLeft="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:inputType="textEmailAddress"
                 android:hint="Email"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
-
-        <!--  Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp">
+                android:paddingLeft="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:inputType="textPassword"
                 android:hint="Password"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
-
-
-        <!--  Re-enter Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp" >
+                android:paddingLeft="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
             <EditText android:id="@+id/input_re_password"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="35dp"
                 android:inputType="textPassword"
                 android:hint="Re-enter Password"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
-
+                android:paddingLeft="8dp"
+                android:textStyle="bold"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <Button
             android:id="@+id/btn_register"
             android:layout_width="fill_parent"

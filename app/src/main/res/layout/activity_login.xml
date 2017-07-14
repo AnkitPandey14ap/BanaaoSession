@@ -22,11 +22,6 @@
             android:layout_gravity="center_horizontal" />
 
         <!--  Email Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            app:hintTextAppearance="@style/BlackTextInputLayout">
             <EditText android:id="@+id/input_email"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -34,25 +29,18 @@
                 android:hint="Email"
                 android:background="@drawable/edittext_border"
                 android:textStyle="bold"
-                android:paddingLeft="8dp"/>
-        </android.support.design.widget.TextInputLayout>
+                android:paddingLeft="8dp"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"/>
 
         <!--  Password Label -->
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            app:hintTextAppearance="@style/BlackTextInputLayout">
             <EditText android:id="@+id/input_password"
                 android:layout_width="match_parent"
-                android:layout_height="40dp"
+                android:layout_height="35dp"
                 android:inputType="textPassword"
                 android:hint="Password"
                 android:background="@drawable/edittext_border"
                 android:paddingLeft="8dp"
-                android:textStyle="bold"/>
-        </android.support.design.widget.TextInputLayout>
+                android:textStyle="bold" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btn_login"

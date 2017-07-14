@@ -74,6 +74,28 @@ public class NewSessionActivity extends AppCompatActivity {
         cancel_action = (Button) findViewById(R.id.cancel_action);
 
         list = new ArrayList<String>();
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+        list.add("dfdfdsf");
+
+
         studentList=new HashMap<String, String>();
 
 //        OnClick Buttons
@@ -219,8 +241,8 @@ public class NewSessionActivity extends AppCompatActivity {
         if (resultCode == 2) {
             String name = data.getStringExtra("NAME");
             studentList.put(name, name);
-            list = new ArrayList<>(studentList.values());
 
+            list = new ArrayList<>(studentList.values());
             Log.i("Ankit","here "+name );
 
             adapter = new MyCustomAdapter(list, this);
