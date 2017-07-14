@@ -45,7 +45,7 @@
             android:label="Completed Session" />
         <activity android:name=".Activities.UpdateActivity"></activity>
         <activity
-            android:name=".NewSessionBottomActivity"
+            android:name=".Activities.NewSessionBottomActivity"
             android:label="@string/title_activity_new_session_bottom">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
