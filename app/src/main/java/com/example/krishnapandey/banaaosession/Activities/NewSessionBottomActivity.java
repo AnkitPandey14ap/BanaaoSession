@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
 import com.example.krishnapandey.banaaosession.PopUps.ListSelectionPopUp;
 import com.example.krishnapandey.banaaosession.R;
@@ -30,6 +31,7 @@ import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -55,13 +57,15 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     ArrayList<String> studentNameList=new ArrayList<>();
 
     private HashMap<String, String> studentList;
+    private HashMap<String, String> topicList;
+    private HashMap<String, String> trainerList;
 
     private ListView lView;
     private String time_from;
     private String time_to;
     private ProgressDialog progressDialog;
-    private DatabaseReference databaseReference;
-    private FirebaseAuth mAuth;
+    private static DatabaseReference databaseReference;
+    private static FirebaseAuth mAuth;
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -93,28 +97,20 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         intialize();
-        add_student_action.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivityForResult(new Intent(NewSessionBottomActivity.this,Pop.class),5);
-            }
-        });
+        getDatabaseReference();
+
 
 
 
         to_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //flag = false;
-                //startActivityForResult(new Intent(NewSessionActivity.this,Pop.class),5);
                 setTime(false);
             }
         });
         from_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //flag = true;
-                //startActivityForResult(new Intent(NewSessionActivity.this,Pop.class),5);
                 setTime(true);
 
 
@@ -172,6 +168,12 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         if (resultCode == 0) {
             studentNameList=data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
+
+//            storing the data of the List studentnameList to hasmap studentList
+            studentList = new HashMap<>();
+            for (int i = 0; i < studentNameList.size(); i++) {
+                studentList.put(studentNameList.get(i), studentNameList.get(i));
+            }
             List<String> extraList = new ArrayList<>();
             extraList = studentNameList;
 //      Make spiner and give the data set to display
@@ -183,6 +185,10 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         }else if (resultCode == 1) {
             studentNameList=data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
+            topicList= new HashMap<>();
+            for (int i = 0; i < studentNameList.size(); i++) {
+                topicList.put(studentNameList.get(i), studentNameList.get(i));
+            }
             List<String> extraList = new ArrayList<>();
             extraList = studentNameList;
 //      Make spiner and give the data set to display
@@ -194,6 +200,10 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         }else if (resultCode == 2) {
             studentNameList=data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
+            trainerList= new HashMap<>();
+            for (int i = 0; i < studentNameList.size(); i++) {
+                trainerList.put(studentNameList.get(i), studentNameList.get(i));
+            }
             List<String> extraList = new ArrayList<>();
             extraList = studentNameList;
 //      Make spiner and give the data set to display
@@ -217,9 +227,9 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         add_trainer_action = (Button) findViewById(R.id.add_trainer_action);
 
         spinnerStudents = (Spinner) findViewById(R.id.spinner1);
+/*
 
         studentList=new HashMap<String, String>();
-        list = new ArrayList<String>();
 
         list.add("dfdfdsf");
         list.add("dfdfdsf");
@@ -233,6 +243,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         list.add("dfdfdsf");
         list.add("dfdfdsf");
         list.add("dfdfdsf");
+*/
 
     }
     public void setTime(final boolean time) {
@@ -263,17 +274,17 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             Toast.makeText(NewSessionBottomActivity.this, "Add some students first", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (studentList.size() == 0) {
-            Toast.makeText(NewSessionBottomActivity.this, "Add some students first", Toast.LENGTH_SHORT).show();
+        if (topicList.size() == 0) {
+            Toast.makeText(NewSessionBottomActivity.this, "Add some topic first", Toast.LENGTH_SHORT).show();
             return;
         }
-        if (studentList.size() == 0) {
-            Toast.makeText(NewSessionBottomActivity.this, "Add some students first", Toast.LENGTH_SHORT).show();
+        if (trainerList.size() == 0) {
+            Toast.makeText(NewSessionBottomActivity.this, "Add a trainer first", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        String name = input_Session_name.getText().toString().trim();
-        String location = input_location.getText().toString().trim();
+        final String name = input_Session_name.getText().toString().trim();
+        final String location = input_location.getText().toString().trim();
 
 
         if (TextUtils.isEmpty(name)) {
@@ -295,14 +306,21 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             Toast.makeText(this, "Set Time First", Toast.LENGTH_SHORT).show();
             return;
         }
-
+        progressDialog = new ProgressDialog(NewSessionBottomActivity.this);
+        progressDialog.setMessage("saving data...");
+        progressDialog.show();
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
+                SessionInformation sessionInformation = new SessionInformation(name,location,time_from,time_to,studentList,topicList,trainerList);
+                Log.i("Ankit",studentList.size()+" "+topicList.size()+" "+trainerList.size());
+                //getDatabaseReference().child("dfdsf").child("hello").setValue("data");
+                getDatabaseReference().child(Nodes.session).child(sessionInformation.name).setValue(sessionInformation);
                 progressDialog.hide();
 
                 Toast.makeText(NewSessionBottomActivity.this, "succesfull", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "String is " + s);
+
             }
 
             @Override
@@ -323,6 +341,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(NewSessionBottomActivity.this, "canceled", Toast.LENGTH_SHORT).show();
+                Log.i("Ankit","canceled");
 
             }
         });
@@ -330,5 +349,10 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     }
 
 
-
+    public static DatabaseReference getDatabaseReference() {
+        mAuth = FirebaseAuth.getInstance();
+        databaseReference = FirebaseDatabase.getInstance().getReference();
+//        databaseReference.child("extra").setValue("detail");
+        return databaseReference;
+    }
 }

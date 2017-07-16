@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.Adapters.MyAdapter;
 import com.example.krishnapandey.banaaosession.Adapters.MyCustomAdapter;
+import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
 import com.example.krishnapandey.banaaosession.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -79,69 +80,21 @@ public class UpdateActivity extends AppCompatActivity {
 
     //Storage Reference
     private StorageReference storageRef;
+    private TextView status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
+        Log.i("Ankit","onCreate");
+
         Intent intent = getIntent();
-        sessionName = intent.getStringExtra("name");
-        //Log.i("Ankit",sessionName);
+        sessionName = intent.getStringExtra("NAME");
+        Log.i("Ankit",sessionName);
 
         //initialize all the widgets
         initialize();
 
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference databaseReference = firebaseDatabase.getReference().child("session");
-
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
-                for (DataSnapshot child : children) {
-                    SessionInformation sessionInformation = child.getValue(SessionInformation.class);
-                    if (sessionInformation.name.equals(sessionName)) {
-                        sessionNameEditText.setText(sessionName);
-                        locationEditText.setText(sessionInformation.location);
-                        topicEditText.setText(sessionInformation.topic);
-                        timmingEditText.setText("From : "+sessionInformation.timeFrom+" To : "+sessionInformation.timeTo);
-                        if (sessionInformation.completed) {
-                            statusCheckBox.setChecked(true);
-                        }else
-                            statusCheckBox.setChecked(false);
-                        //names = new HashMap<String, String>();
-                        names = sessionInformation.names;
-
-                        ArrayList<String> list = new ArrayList<String>(names.values());
-                        Log.i("Ankit", "list will appear now ");
-
-                        //list = names;
-                        for (String s : list) {
-                            Log.i("Ankit", "list "+s);
-                        }
-                        adapter = new MyCustomAdapter(list, UpdateActivity.this);
-                        listView = (ListView) findViewById(R.id.listView);
-                        listView.setAdapter(adapter);
-
-
-
-
-
-
-                    }
-
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
-
-
-
-        //Button sendButton = (Button) findViewById(R.id.sendButton);
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -149,19 +102,17 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
 
-
-        //RecyclerView
         verifyStoragePermissions(this);
-        list = new ArrayList<String>();
+        fetchData();
+
+
 //        RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 
-
         Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
-
             @Override
             public void onClick(View arg0) {
                 Intent i = new Intent(
@@ -175,6 +126,36 @@ public class UpdateActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void fetchData() {
+
+        DatabaseReference databseRef=NewSessionBottomActivity.getDatabaseReference().child(Nodes.session).child(sessionName);
+        databseRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                SessionInformation sessionInformation = dataSnapshot.getValue(SessionInformation.class);
+
+                /*sessionNameEditText = (TextView) findViewById(R.id.sessionNameEditText);
+        locationEditText = (TextView) findViewById(R.id.locationEditText);
+        topicEditText = (TextView) findViewById(R.id.topicEditText);
+        timmingEditText= (TextView) findViewById(R.id.timmingEditText);
+        feedbackEditText= (TextView) findViewById(R.id.feedbackEditText);
+*/
+            sessionNameEditText.setText(sessionInformation.name);
+            locationEditText.setText(sessionInformation.location);
+            //topicEditText.setText(sessionInformation.topic);
+            timmingEditText.setText("From : "+sessionInformation.timeTo+"  To : "+sessionInformation.timeTo);
+                if (sessionInformation.completed) {
+                    status.setText("completed");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
@@ -251,14 +232,15 @@ public class UpdateActivity extends AppCompatActivity {
     void initialize() {
         sessionNameEditText = (TextView) findViewById(R.id.sessionNameEditText);
         locationEditText = (TextView) findViewById(R.id.locationEditText);
-        topicEditText = (TextView) findViewById(R.id.topicEditText);
+        status = (TextView) findViewById(R.id.status);
         timmingEditText= (TextView) findViewById(R.id.timmingEditText);
         feedbackEditText= (TextView) findViewById(R.id.feedbackEditText);
 
-        statusCheckBox = (CheckBox) findViewById(R.id.statusCheckBox);
+        list = new ArrayList<String>();
+//        statusCheckBox = (CheckBox) findViewById(R.id.statusCheckBox);
 
         sendButton = (Button) findViewById(R.id.sendButton);
-        listView = (ListView) findViewById(R.id.list_view);
+        listView = (ListView) findViewById(R.id.listView);
     }
     public void verifyStoragePermissions(Activity activity) {
         // Check if we have write permission

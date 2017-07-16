@@ -10,21 +10,30 @@ import java.util.HashMap;
 public class SessionInformation {
     public String name;
     public String location;
-    public String topic;
     public String timeFrom;
     public String timeTo;
     public boolean completed;
 
-    public HashMap<String, String> names;
+    public HashMap<String, String> studentsName = new HashMap<String, String>();
+    public HashMap<String, String> topic = new HashMap<String, String>();
+    public HashMap<String, String> trainer = new HashMap<String, String>();
 
-    public SessionInformation(String name, String location, String topic, String timeFrom, String timeTo, HashMap<String, String> students) {
+    public SessionInformation(String name, String location,String timeFrom, String timeTo,
+                              HashMap<String, String> studentsName, HashMap<String, String> topic, HashMap<String, String> trainer) {
         this.name = name;
         this.location = location;
-        this.topic = topic;
+        //this.topic = topic;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
-        names = new HashMap<String, String>();
-        names = students;
+
+
+        this.studentsName = studentsName;
+
+
+        this.topic = topic;
+
+
+        this.trainer = trainer;
 
     }
 

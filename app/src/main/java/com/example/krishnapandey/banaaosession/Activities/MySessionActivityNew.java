@@ -2,17 +2,15 @@ package com.example.krishnapandey.banaaosession.Activities;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.ExpandableListAdapter;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 
 import com.example.krishnapandey.banaaosession.Adapters.MySessionAdapter;
@@ -23,14 +21,11 @@ import com.example.krishnapandey.banaaosession.R;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
-public class CompletedSessionActivity extends AppCompatActivity {
+public class MySessionActivityNew extends AppCompatActivity {
 
     private static final String T = "Ankit";
     private ListView listView;
@@ -68,7 +63,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
         initialization();
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        progressDialog = new ProgressDialog(CompletedSessionActivity.this);
+        progressDialog = new ProgressDialog(MySessionActivityNew.this);
         progressDialog.setMessage("Loading.....");
         progressDialog.show();
 
@@ -80,9 +75,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children ) {
                     SessionInformation sessionInformation = child.getValue(SessionInformation.class);
-                    if (sessionInformation.completed) {
-                        sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo));
-                    }
+                    sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo));
                 }
                 makeListView(sessionList);
 
@@ -100,7 +93,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Log.i(T,"clicked "+sessionList.get(position).getSessionName());
 
-                Intent intent=new Intent(CompletedSessionActivity.this,UpdateActivity.class);
+                Intent intent=new Intent(MySessionActivityNew.this,UpdateActivity.class);
                 intent.putExtra("NAME", sessionList.get(position).getSessionName());
                 startActivity(intent);
 
@@ -115,7 +108,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
                 android.R.layout.simple_list_item_1, android.R.id.text1, list);
         listView.setAdapter(adapter);*/
 
-        MySessionAdapter mySessionAdapter = new MySessionAdapter(sessionList, CompletedSessionActivity.this);
+        MySessionAdapter mySessionAdapter = new MySessionAdapter(sessionList, MySessionActivityNew.this);
         listView.setAdapter(mySessionAdapter);
         progressDialog.hide();
     }
@@ -136,4 +129,3 @@ public class CompletedSessionActivity extends AppCompatActivity {
         return NewSessionBottomActivity.getDatabaseReference();
     }
 }
-

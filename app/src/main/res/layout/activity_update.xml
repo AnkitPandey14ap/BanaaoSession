@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:padding="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
     tools:context="com.example.krishnapandey.banaaosession.Activities.UpdateActivity">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -13,25 +14,32 @@
 
         <TextView
             android:id="@+id/sessionNameEditText"
+            android:textSize="20sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="35sp"
             android:text="Session Name" />
         <TextView
             android:id="@+id/locationEditText"
+            android:textSize="20sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="35sp"
             android:text="Location"
             android:layout_below="@+id/sessionNameEditText"/>
         <TextView
             android:id="@+id/topicEditText"
+            android:textSize="20sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="35sp"
             android:text="Topic"
             android:layout_below="@+id/locationEditText"/>
         <TextView
             android:id="@+id/timmingEditText"
+            android:textSize="20sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:layout_height="35sp"
             android:text="Timming"
             android:layout_below="@+id/topicEditText"/>
         <ListView
@@ -45,18 +53,23 @@
             android:id="@+id/statusLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/listView">
+            android:layout_below="@+id/listView"
+            android:orientation="horizontal">
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:textSize="20sp"
+                android:layout_width="0dp"
+                android:gravity="center_vertical"
+                android:layout_height="35sp"
                 android:text="Status"
-                android:layout_weight="6"/>
-            <CheckBox
-                android:id="@+id/statusCheckBox"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_weight="1"/>
+            <TextView
+                android:id="@+id/status"
+                android:layout_width="0dp"
+                android:gravity="center_vertical"
+                android:layout_height="35sp"
+                android:textSize="20sp"
                 android:layout_weight="1"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"/>
+                android:text="Pending"/>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"

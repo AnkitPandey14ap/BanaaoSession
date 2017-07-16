@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:background="@drawable/session_list_border"
+    android:padding="@dimen/activity_horizontal_margin">
+    <TextView
+        android:id="@+id/sessionName"
+        android:layout_width="match_parent"
+        android:text="dfsdfdsfsd"
+        android:textSize="20sp"
+        android:gravity="center_vertical"
+        android:layout_height="35sp"
+        android:textStyle="bold"/>
+
+    <View style="@style/Divider"/>
+    <TextView
+        android:id="@+id/timming"
+        android:text="dfsfds"
+        android:textSize="20sp"
+        android:layout_width="match_parent"
+        android:gravity="center_vertical"
+        android:layout_height="35sp" />
+</LinearLayout>

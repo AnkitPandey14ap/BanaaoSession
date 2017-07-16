@@ -23,7 +23,11 @@
         <activity
             android:name=".Activities.LoginActivity"
             android:label="Banaao Session">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".Activities.RegisterActivity"
@@ -32,33 +36,18 @@
             android:name=".Activities.ProfileActivity"
             android:label="Banaao Session" />
         <activity
-            android:name=".Activities.NewSessionActivity"
-            android:label="Create New Session" />
-        <activity
-            android:name=".Activities.Pop"
-            android:theme="@style/AppTheme.CustomeTheme" />
-        <activity
-            android:name=".Activities.MySessionActivity"
-            android:label="All Sessions" />
-        <activity
             android:name=".Activities.CompletedSessionActivity"
             android:label="Completed Session" />
-        <activity android:name=".Activities.UpdateActivity"></activity>
+        <activity android:name=".Activities.UpdateActivity" />
         <activity
             android:name=".Activities.NewSessionBottomActivity"
-            android:label="@string/title_activity_new_session_bottom">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="@string/title_activity_new_session_bottom"></activity>
         <activity
             android:name=".PopUps.ListSelectionPopUp"
-            android:label="@string/title_activity_new_session_bottom">
-
-        </activity>
-
+            android:label="@string/title_activity_new_session_bottom"></activity>
+        <activity
+            android:name=".Activities.MySessionActivityNew"
+            android:label="@string/title_activity_my_session_new"></activity>
     </application>
 
 </manifest>
