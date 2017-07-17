@@ -28,6 +28,7 @@ import com.example.krishnapandey.banaaosession.Adapters.MyAdapter;
 import com.example.krishnapandey.banaaosession.Adapters.MyCustomAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.example.krishnapandey.banaaosession.PopUps.TopicPopUp;
 import com.example.krishnapandey.banaaosession.R;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -94,6 +95,14 @@ public class UpdateActivity extends AppCompatActivity {
 
         //initialize all the widgets
         initialize();
+//        Check permission
+        verifyStoragePermissions(this);
+
+//        fetch session data from server
+        fetchData();
+
+//        loadImage from gallery
+        loadImage();
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,11 +110,17 @@ public class UpdateActivity extends AppCompatActivity {
                 sendMail();
             }
         });
+        topicEditText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent1 = new Intent(UpdateActivity.this, TopicPopUp.class);
+                startActivity(intent1);
+            }
+        });
 
-        verifyStoragePermissions(this);
-        fetchData();
+    }
 
-
+    private void loadImage() {
 //        RecyclerView
         mRecyclerView = (RecyclerView) findViewById(R.id.recycler_view);
         mRecyclerView.setHasFixedSize(true);
@@ -118,10 +133,6 @@ public class UpdateActivity extends AppCompatActivity {
                 Intent i = new Intent(
                         Intent.ACTION_PICK,
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-                //i.setType("image/*");
-                /*i.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
-                i.setAction(Intent.ACTION_GET_CONTENT);
-                startActivityForResult(Intent.createChooser(i,"Select Picture"), RESULT_LOAD_IMAGE);*/
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
         });
@@ -130,22 +141,17 @@ public class UpdateActivity extends AppCompatActivity {
 
     private void fetchData() {
 
-        DatabaseReference databseRef=NewSessionBottomActivity.getDatabaseReference().child(Nodes.session).child(sessionName);
+        DatabaseReference    databseRef=NewSessionBottomActivity.getDatabaseReference().child(Nodes.session).child(sessionName);
         databseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 SessionInformation sessionInformation = dataSnapshot.getValue(SessionInformation.class);
 
-                /*sessionNameEditText = (TextView) findViewById(R.id.sessionNameEditText);
-        locationEditText = (TextView) findViewById(R.id.locationEditText);
-        topicEditText = (TextView) findViewById(R.id.topicEditText);
-        timmingEditText= (TextView) findViewById(R.id.timmingEditText);
-        feedbackEditText= (TextView) findViewById(R.id.feedbackEditText);
-*/
-            sessionNameEditText.setText(sessionInformation.name);
-            locationEditText.setText(sessionInformation.location);
-            //topicEditText.setText(sessionInformation.topic);
-            timmingEditText.setText("From : "+sessionInformation.timeTo+"  To : "+sessionInformation.timeTo);
+
+                sessionNameEditText.setText(sessionInformation.name);
+                locationEditText.setText(sessionInformation.location);
+                //topicEditText.setText(sessionInformation.topic);
+                timmingEditText.setText("From : "+sessionInformation.timeTo+"  To : "+sessionInformation.timeTo);
                 if (sessionInformation.completed) {
                     status.setText("completed");
                 }
@@ -163,7 +169,6 @@ public class UpdateActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         try{
-
 
             if (requestCode == RESULT_LOAD_IMAGE && resultCode == RESULT_OK && null != data) {
                 Uri selectedImage = data.getData();
@@ -235,6 +240,7 @@ public class UpdateActivity extends AppCompatActivity {
         status = (TextView) findViewById(R.id.status);
         timmingEditText= (TextView) findViewById(R.id.timmingEditText);
         feedbackEditText= (TextView) findViewById(R.id.feedbackEditText);
+        topicEditText = (TextView) findViewById(R.id.topicEditText);
 
         list = new ArrayList<String>();
 //        statusCheckBox = (CheckBox) findViewById(R.id.statusCheckBox);

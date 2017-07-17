@@ -24,6 +24,7 @@ import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.example.krishnapandey.banaaosession.DataClasses.UserData;
 import com.example.krishnapandey.banaaosession.PopUps.ListSelectionPopUp;
 import com.example.krishnapandey.banaaosession.R;
 import com.google.firebase.auth.FirebaseAuth;
@@ -32,6 +33,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -60,12 +62,15 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     private HashMap<String, String> topicList;
     private HashMap<String, String> trainerList;
 
+    HashMap<String, UserData> topicHashMap;
+
     private ListView lView;
     private String time_from;
     private String time_to;
     private ProgressDialog progressDialog;
     private static DatabaseReference databaseReference;
     private static FirebaseAuth mAuth;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -120,7 +125,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         add_student_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class);
+                final Intent intent = new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class);
                 intent.putExtra("caller", "student");
                 startActivityForResult(intent,0);
 //                  startActivity(new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class));
@@ -182,9 +187,22 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dropdown.setAdapter(adapter);
 
+
+
+
         }else if (resultCode == 1) {
+//            ArrayList<UserData> userDatas = (ArrayList<UserData>) data.getSerializableExtra("LIST");
+//            Log.i("Ankit", "userData "+String.valueOf(userDatas));
             studentNameList=data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
+            topicHashMap = new HashMap<String, UserData>();
+
+
+            for (int i = 0; i < studentNameList.size(); i++) {
+                topicHashMap.put(studentNameList.get(i), new UserData(false, studentNameList.get(i)));
+            }
+
+
             topicList= new HashMap<>();
             for (int i = 0; i < studentNameList.size(); i++) {
                 topicList.put(studentNameList.get(i), studentNameList.get(i));
@@ -196,6 +214,9 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, extraList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dropdown.setAdapter(adapter);
+
+
+
 
         }else if (resultCode == 2) {
             studentNameList=data.getStringArrayListExtra("NAME LIST");
@@ -227,23 +248,6 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         add_trainer_action = (Button) findViewById(R.id.add_trainer_action);
 
         spinnerStudents = (Spinner) findViewById(R.id.spinner1);
-/*
-
-        studentList=new HashMap<String, String>();
-
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-        list.add("dfdfdsf");
-*/
 
     }
     public void setTime(final boolean time) {
@@ -312,7 +316,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SessionInformation sessionInformation = new SessionInformation(name,location,time_from,time_to,studentList,topicList,trainerList);
+                SessionInformation sessionInformation = new SessionInformation(name,location,time_from,time_to,studentList,topicHashMap,trainerList);
                 Log.i("Ankit",studentList.size()+" "+topicList.size()+" "+trainerList.size());
                 //getDatabaseReference().child("dfdsf").child("hello").setValue("data");
                 getDatabaseReference().child(Nodes.session).child(sessionInformation.name).setValue(sessionInformation);
@@ -320,7 +324,6 @@ public class NewSessionBottomActivity extends AppCompatActivity {
 
                 Toast.makeText(NewSessionBottomActivity.this, "succesfull", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "String is " + s);
-
             }
 
             @Override

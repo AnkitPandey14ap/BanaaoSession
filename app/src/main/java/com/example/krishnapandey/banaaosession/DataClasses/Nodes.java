@@ -7,5 +7,8 @@ package com.example.krishnapandey.banaaosession.DataClasses;
 public class Nodes {
     public static String user = "user";
     public static String session= "session";
+    public static String allTopics= "all topics";
+    public static String allstudents= "allstudents";
+
 
 }

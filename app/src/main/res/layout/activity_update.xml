@@ -18,14 +18,18 @@
             android:layout_width="match_parent"
             android:gravity="center_vertical"
             android:layout_height="35sp"
-            android:text="Session Name" />
+            android:text="Session Name"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <TextView
             android:id="@+id/locationEditText"
             android:textSize="20sp"
             android:layout_width="match_parent"
             android:layout_height="35sp"
             android:text="Location"
-            android:layout_below="@+id/sessionNameEditText"/>
+            android:layout_below="@+id/sessionNameEditText"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <TextView
             android:id="@+id/topicEditText"
             android:textSize="20sp"
@@ -33,7 +37,9 @@
             android:gravity="center_vertical"
             android:layout_height="35sp"
             android:text="Topic"
-            android:layout_below="@+id/locationEditText"/>
+            android:layout_below="@+id/locationEditText"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <TextView
             android:id="@+id/timmingEditText"
             android:textSize="20sp"
@@ -41,12 +47,16 @@
             android:gravity="center_vertical"
             android:layout_height="35sp"
             android:text="Timming"
-            android:layout_below="@+id/topicEditText"/>
+            android:layout_below="@+id/topicEditText"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/timmingEditText">
+            android:layout_below="@+id/timmingEditText"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
         </ListView>
 
         <LinearLayout
@@ -54,7 +64,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/listView"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin">
             <TextView
                 android:textSize="20sp"
                 android:layout_width="0dp"
@@ -75,7 +87,9 @@
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/statusLinearLayout"/>
+            android:layout_below="@+id/statusLinearLayout"
+            android:background="@drawable/edittext_border"
+            android:layout_marginTop="@dimen/activity_vertical_margin"/>
 
         <Button
             android:id="@+id/buttonLoadPicture"

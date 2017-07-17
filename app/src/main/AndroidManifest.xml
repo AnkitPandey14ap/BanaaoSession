@@ -41,13 +41,16 @@
         <activity android:name=".Activities.UpdateActivity" />
         <activity
             android:name=".Activities.NewSessionBottomActivity"
-            android:label="@string/title_activity_new_session_bottom"></activity>
+            android:label="@string/title_activity_new_session_bottom" />
         <activity
             android:name=".PopUps.ListSelectionPopUp"
-            android:label="@string/title_activity_new_session_bottom"></activity>
+            android:label="@string/title_activity_new_session_bottom" />
         <activity
             android:name=".Activities.MySessionActivityNew"
-            android:label="@string/title_activity_my_session_new"></activity>
+            android:label="@string/title_activity_my_session_new" />
+        <activity
+            android:name=".PopUps.TopicPopUp"
+            android:label="@string/title_activity_topic_pop_up"></activity>
     </application>
 
 </manifest>

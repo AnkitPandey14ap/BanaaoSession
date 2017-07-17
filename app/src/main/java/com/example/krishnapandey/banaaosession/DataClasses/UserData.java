@@ -9,6 +9,9 @@ public class UserData {
     private boolean isSelected;
     private String userName;
 
+    UserData() {
+        
+    }
     public UserData(boolean isSelected, String userName) {
 
         this.isSelected = isSelected;

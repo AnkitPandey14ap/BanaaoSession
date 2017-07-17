@@ -167,12 +167,12 @@ public class RegisterActivity extends AppCompatActivity {
         String usercode = input_usercode.getText().toString().trim();
         String email = input_email.getText().toString().trim();
 
-        UserInformation userInformation = new UserInformation(name, phone, usercode);
+        UserInformation userInformation = new UserInformation(name, phone, usercode,email);
 
         FirebaseUser user = mAuth.getCurrentUser();
         //databaseReference.child(user.getUid()).setValue(userInformation);
         //databaseReference.child(user.getUid()).push().setValue(userInformation);
-        databaseReference.child("user").child(usercode).setValue(userInformation);
+        databaseReference.child("user").child(name).setValue(userInformation);
         Toast.makeText(this, "data saved", Toast.LENGTH_SHORT).show();
     }
 

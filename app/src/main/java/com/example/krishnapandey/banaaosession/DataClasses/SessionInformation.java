@@ -15,11 +15,12 @@ public class SessionInformation {
     public boolean completed;
 
     public HashMap<String, String> studentsName = new HashMap<String, String>();
-    public HashMap<String, String> topic = new HashMap<String, String>();
+//    public HashMap<String, String> topic = new HashMap<String, String>();
+    public HashMap<String, UserData> topic = new HashMap<>();
     public HashMap<String, String> trainer = new HashMap<String, String>();
 
     public SessionInformation(String name, String location,String timeFrom, String timeTo,
-                              HashMap<String, String> studentsName, HashMap<String, String> topic, HashMap<String, String> trainer) {
+                              HashMap<String, String> studentsName, HashMap<String, UserData> topic, HashMap<String, String> trainer) {
         this.name = name;
         this.location = location;
         //this.topic = topic;
