@@ -33,16 +33,27 @@
             android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:gravity="center"/>
-        <TextView
-            android:id="@+id/topicEditText"
-            android:textSize="20sp"
+        <RelativeLayout
+            android:id="@+id/topic_relative_layout"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="35sp"
-            android:text="Topic List (Click here)"
-            android:layout_below="@+id/locationEditText"
-            android:background="@drawable/edittext_border"
-            android:layout_marginTop="@dimen/activity_vertical_margin"/>
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:layout_below="@+id/locationEditText">
+            <TextView
+                android:id="@+id/topicEditText"
+                android:textSize="20sp"
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="35sp"
+                android:text="Topics"
+                android:background="@drawable/edittext_border"/>
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="30sp"
+                android:layout_centerInParent="true"
+                android:layout_alignParentRight="true"
+                android:background="@drawable/go_icon"/>
+        </RelativeLayout>
         <TextView
             android:id="@+id/timmingEditText"
             android:textSize="20sp"
@@ -50,7 +61,7 @@
             android:gravity="center"
             android:layout_height="35sp"
             android:text="Timming"
-            android:layout_below="@+id/topicEditText"
+            android:layout_below="@+id/topic_relative_layout"
             android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <ListView

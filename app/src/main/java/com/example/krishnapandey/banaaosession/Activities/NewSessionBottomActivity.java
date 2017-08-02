@@ -247,11 +247,11 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 if (time) {
-                    time_from = selectedHour + " " + selectedMinute;
-                    input_from.setText(selectedHour + ":" + selectedMinute);
+                    time_from = selectedHour + " : " + selectedMinute;
+                    input_from.setText(selectedHour + " : " + selectedMinute);
                 } else {
-                    time_to = selectedHour + " " + selectedMinute;
-                    input_to.setText(selectedHour + ":" + selectedMinute);
+                    time_to = selectedHour + " : " + selectedMinute;
+                    input_to.setText(selectedHour + " : " + selectedMinute);
                 }
             }
         }, hour, minute, true);//Yes 24 hour time
