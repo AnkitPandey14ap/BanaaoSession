@@ -7,6 +7,8 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,12 +16,14 @@ import android.widget.ArrayAdapter;
 import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.Adapters.MySessionAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.MySessionData;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
 import com.example.krishnapandey.banaaosession.R;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -48,6 +52,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    finish();
                     //sessionNameEditText.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
@@ -76,6 +81,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
         getDatabaseReference().child(Nodes.session).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
+                sessionList.clear();
                 Log.i("Ankit","fetching data");
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children ) {
@@ -135,5 +141,30 @@ public class CompletedSessionActivity extends AppCompatActivity {
 
         return NewSessionBottomActivity.getDatabaseReference();
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        int res_id = item.getItemId();
+        if (res_id == R.id.action_log_out) {
+            logOut();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(CompletedSessionActivity.this,LoginActivity.class));
+        Toast.makeText(this, "Log Out successfully", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
 }
 

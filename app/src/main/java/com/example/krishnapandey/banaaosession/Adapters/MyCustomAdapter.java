@@ -21,28 +21,28 @@ private Context context;
 
 
 
-public MyCustomAdapter(ArrayList<String> list, Context context) { 
+public MyCustomAdapter(ArrayList<String> list, Context context) {
     this.list = list;
     Log.i("Ankit", "Size " + list.size());
     this.context = context;
-} 
+}
 
 @Override
 public int getCount()
 {
-    return list.size(); 
-} 
+    return list.size();
+}
 
 @Override
-public Object getItem(int pos) { 
-    return list.get(pos); 
-} 
+public Object getItem(int pos) {
+    return list.get(pos);
+}
 
 @Override
-public long getItemId(int pos) { 
+public long getItemId(int pos) {
     return 0;
     //just return 0 if your list items do not have an Id variable.
-} 
+}
 
 @Override
 public View getView(final int position, View convertView, ViewGroup parent) {
@@ -64,7 +64,7 @@ public View getView(final int position, View convertView, ViewGroup parent) {
 
     deleteBtn.setOnClickListener(new View.OnClickListener(){
         @Override
-        public void onClick(View v) { 
+        public void onClick(View v) {
             //do something
             list.remove(position); //or some other task
             notifyDataSetChanged();
@@ -72,13 +72,13 @@ public View getView(final int position, View convertView, ViewGroup parent) {
     });
     /*addBtn.setOnClickListener(new View.OnClickListener(){
         @Override
-        public void onClick(View v) { 
+        public void onClick(View v) {
             //do something
             notifyDataSetChanged();
         }
     });
 */
-    return view; 
+    return view;
 }
 
 }

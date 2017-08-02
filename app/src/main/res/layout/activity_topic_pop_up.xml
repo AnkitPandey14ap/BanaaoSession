@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorBackground"
+    android:padding="@dimen/activity_vertical_margin"
     tools:context="com.example.krishnapandey.banaaosession.PopUps.TopicPopUp">
 
     <FrameLayout
@@ -32,9 +34,12 @@
                     android:id="@+id/completedListView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/completeTextView">
+                    android:layout_below="@+id/completeTextView"
+                    android:padding="@dimen/activity_vertical_margin">
                 </ListView>
             </RelativeLayout>
+
+            <View style="@style/Divider"/>
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -50,7 +55,8 @@
                     android:id="@+id/incompletedListView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/incompleteTextView">
+                    android:layout_below="@+id/incompleteTextView"
+                    android:padding="@dimen/activity_vertical_margin">
                 </ListView>
             </RelativeLayout>
         </LinearLayout>

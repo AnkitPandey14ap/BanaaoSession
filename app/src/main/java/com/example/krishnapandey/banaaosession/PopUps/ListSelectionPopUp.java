@@ -1,5 +1,6 @@
 package com.example.krishnapandey.banaaosession.PopUps;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -38,6 +39,8 @@ public class ListSelectionPopUp extends AppCompatActivity {
     ArrayList<String> nameList = new ArrayList<String>();
     int count = 0;
 
+    private ProgressDialog progressDialog;
+
     String caller;
     MyPopUpAdapter myPopUpAdapter;
 
@@ -46,7 +49,7 @@ public class ListSelectionPopUp extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_selection_popup_activity);
 
-
+        progressDialog = ProgressDialog.show(this, "Waiting...", "Please wait...");
         caller = getIntent().getStringExtra("caller");
         listView = (ListView) findViewById(R.id.listView);
         final TextView textView = (TextView) findViewById(R.id.coutTextView);
@@ -64,13 +67,15 @@ public class ListSelectionPopUp extends AppCompatActivity {
                     nameList.remove(userData.getUserName());
                     userData.setSelected(false);
                     count = count - 1;
+                    progressDialog.dismiss();
                 } else {
                     nameList.add(userData.getUserName());
                     userData.setSelected(true);
                     count = count + 1;
                 }
-                Toast.makeText(ListSelectionPopUp.this, "Total " + count, Toast.LENGTH_SHORT).show();
-                textView.setText("add " + count);
+                //Toast.makeText(ListSelectionPopUp.this, "Total " + count, Toast.LENGTH_SHORT).show();
+                textView.setText("Count : " + count);
+
                 myPopUpAdapter.notifyDataSetChanged();
             }
         });
@@ -81,7 +86,7 @@ public class ListSelectionPopUp extends AppCompatActivity {
                 if (caller.equals("student")) {
                     Intent intent = new Intent();
                     intent.putStringArrayListExtra("NAME LIST", nameList);
-                    setResult(0, intent);
+                    setResult(3, intent);
                     finish();
                 } else if (caller.equals("topic")) {
                     Intent intent = new Intent();
@@ -100,6 +105,7 @@ public class ListSelectionPopUp extends AppCompatActivity {
 
             }
         });
+
     }
 
 
@@ -138,7 +144,7 @@ public class ListSelectionPopUp extends AppCompatActivity {
                             list.add(new UserData(false,map.get(key)));
                         }
                     }
-
+                    progressDialog.dismiss();
                     myPopUpAdapter.notifyDataSetChanged();
                 }
 
@@ -150,4 +156,16 @@ public class ListSelectionPopUp extends AppCompatActivity {
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+/*
+    @Override
+    public void finish() {
+        Intent intent=new Intent();
+        setResult(10, intent);
+        super.finish();
+    }*/
 }

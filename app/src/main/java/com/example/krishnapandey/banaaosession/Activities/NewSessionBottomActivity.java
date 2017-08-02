@@ -56,11 +56,12 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     Spinner spinnerStudents;
 
     ArrayList<String> list;
-    ArrayList<String> studentNameList=new ArrayList<>();
+    ArrayList<String> studentNameList = new ArrayList<>();
 
-    private HashMap<String, String> studentList;
-    private HashMap<String, String> topicList;
-    private HashMap<String, String> trainerList;
+    private HashMap<String, String> studentList = new HashMap<>();
+    private HashMap<String, String> topicList = new HashMap<>();
+
+    private HashMap<String, String> trainerList = new HashMap<>();
 
     HashMap<String, UserData> topicHashMap;
 
@@ -72,7 +73,6 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     private static FirebaseAuth mAuth;
 
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -80,6 +80,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
+                    finish();
                     //mTextMessage.setText(R.string.title_home);
                     return true;
                 case R.id.navigation_dashboard:
@@ -105,8 +106,6 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         getDatabaseReference();
 
 
-
-
         to_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -127,7 +126,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 final Intent intent = new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class);
                 intent.putExtra("caller", "student");
-                startActivityForResult(intent,0);
+                startActivityForResult(intent, 0);
 //                  startActivity(new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class));
             }
         });
@@ -136,102 +135,90 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class);
                 intent.putExtra("caller", "topic");
-                startActivityForResult(intent,1);}
+                startActivityForResult(intent, 1);
+            }
         });
         add_trainer_action.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(NewSessionBottomActivity.this, ListSelectionPopUp.class);
                 intent.putExtra("caller", "trainer");
-                startActivityForResult(intent,2);}
+                startActivityForResult(intent, 2);
+            }
         });
-
-/*
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(NewSessionBottomActivity.this,
-                android.R.layout.simple_spinner_item,studentNameList);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerStudents.setAdapter(adapter);
-*/
 
         List<String> extraList = new ArrayList<>();
         extraList = studentNameList;
-        /*
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(NewSessionBottomActivity.this,
-                android.R.layout.simple_spinner_item, extraList);
 
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinnerStudents.setAdapter(adapter);
-        spinnerStudents.setPrompt("Students");
-        spinnerStudents.setOnItemSelectedListener(this);
-*/
 
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == 0) {
-            studentNameList=data.getStringArrayListExtra("NAME LIST");
+        if (requestCode == RESULT_OK && resultCode == RESULT_CANCELED) {
+
+        } else if (resultCode==3) {
+            studentNameList = data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
 
 //            storing the data of the List studentnameList to hasmap studentList
-            studentList = new HashMap<>();
+
             for (int i = 0; i < studentNameList.size(); i++) {
                 studentList.put(studentNameList.get(i), studentNameList.get(i));
             }
             List<String> extraList = new ArrayList<>();
             extraList = studentNameList;
 //      Make spiner and give the data set to display
-            Spinner dropdown = (Spinner)findViewById(R.id.spinner1);
+            Spinner dropdown = (Spinner) findViewById(R.id.spinner1);
             ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, extraList);
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
             dropdown.setAdapter(adapter);
-
-
-
-
-        }else if (resultCode == 1) {
+        } else {
+            if (resultCode == 1) {
 //            ArrayList<UserData> userDatas = (ArrayList<UserData>) data.getSerializableExtra("LIST");
 //            Log.i("Ankit", "userData "+String.valueOf(userDatas));
-            studentNameList=data.getStringArrayListExtra("NAME LIST");
+                studentNameList = data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
-            topicHashMap = new HashMap<String, UserData>();
+                topicHashMap = new HashMap<String, UserData>();
 
 
-            for (int i = 0; i < studentNameList.size(); i++) {
-                topicHashMap.put(studentNameList.get(i), new UserData(false, studentNameList.get(i)));
-            }
+                for (int i = 0; i < studentNameList.size(); i++) {
+                    topicHashMap.put(studentNameList.get(i), new UserData(false, studentNameList.get(i)));
+                }
 
 
-            topicList= new HashMap<>();
-            for (int i = 0; i < studentNameList.size(); i++) {
-                topicList.put(studentNameList.get(i), studentNameList.get(i));
-            }
-            List<String> extraList = new ArrayList<>();
-            extraList = studentNameList;
+                topicList = new HashMap<>();
+                for (int i = 0; i < studentNameList.size(); i++) {
+                    topicList.put(studentNameList.get(i), studentNameList.get(i));
+                }
+                List<String> extraList = new ArrayList<>();
+                extraList = studentNameList;
 //      Make spiner and give the data set to display
-            Spinner dropdown = (Spinner)findViewById(R.id.spinnerTopic);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, extraList);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dropdown.setAdapter(adapter);
+                Spinner dropdown = (Spinner) findViewById(R.id.spinnerTopic);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, extraList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dropdown.setAdapter(adapter);
 
 
-
-
-        }else if (resultCode == 2) {
-            studentNameList=data.getStringArrayListExtra("NAME LIST");
+            } else if (resultCode == 2) {
+                studentNameList = data.getStringArrayListExtra("NAME LIST");
 //      Copy the data of arrayList to List
-            trainerList= new HashMap<>();
-            for (int i = 0; i < studentNameList.size(); i++) {
-                trainerList.put(studentNameList.get(i), studentNameList.get(i));
-            }
-            List<String> extraList = new ArrayList<>();
-            extraList = studentNameList;
+                trainerList = new HashMap<>();
+                for (int i = 0; i < studentNameList.size(); i++) {
+                    trainerList.put(studentNameList.get(i), studentNameList.get(i));
+                }
+                List<String> extraList = new ArrayList<>();
+                extraList = studentNameList;
 //      Make spiner and give the data set to display
-            Spinner dropdown = (Spinner)findViewById(R.id.spinnerHandover);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, extraList);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            dropdown.setAdapter(adapter);
+                Spinner dropdown = (Spinner) findViewById(R.id.spinnerHandover);
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, extraList);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                dropdown.setAdapter(adapter);
+            }
+        }
+        if (requestCode == RESULT_OK && resultCode == RESULT_CANCELED) {
+            Toast.makeText(this, "backed", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -250,6 +237,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         spinnerStudents = (Spinner) findViewById(R.id.spinner1);
 
     }
+
     public void setTime(final boolean time) {
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
@@ -259,11 +247,11 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
                 if (time) {
-                    time_from = selectedHour +" "+ selectedMinute;
-                    input_from.setText( selectedHour + ":" + selectedMinute);
+                    time_from = selectedHour + " " + selectedMinute;
+                    input_from.setText(selectedHour + ":" + selectedMinute);
                 } else {
-                    time_to = selectedHour +" "+ selectedMinute;
-                    input_to.setText( selectedHour + ":" + selectedMinute);
+                    time_to = selectedHour + " " + selectedMinute;
+                    input_to.setText(selectedHour + ":" + selectedMinute);
                 }
             }
         }, hour, minute, true);//Yes 24 hour time
@@ -292,21 +280,19 @@ public class NewSessionBottomActivity extends AppCompatActivity {
 
 
         if (TextUtils.isEmpty(name)) {
-            input_Session_name.setError("Enter your full name");
+            input_Session_name.setError("Enter your session name");
             //Toast.makeText(this, "enter email", Toast.LENGTH_SHORT).show();
             input_Session_name.requestFocus();
             return;
-        }
-
-        else if (TextUtils.isEmpty(location)) {
-            input_location.setError("Enter the contact no");
+        } else if (TextUtils.isEmpty(location)) {
+            input_location.setError("Enter the Location");
             //Toast.makeText(this, "enter password", Toast.LENGTH_SHORT).show();
             input_location.requestFocus();
             return;
         } else if (time_from.equals("00:00")) {
             Toast.makeText(this, "Set Time First", Toast.LENGTH_SHORT).show();
             return;
-        }else if (time_to.equals("00:00")) {
+        } else if (time_to.equals("00:00")) {
             Toast.makeText(this, "Set Time First", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -316,8 +302,8 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SessionInformation sessionInformation = new SessionInformation(name,location,time_from,time_to,studentList,topicHashMap,trainerList);
-                Log.i("Ankit",studentList.size()+" "+topicList.size()+" "+trainerList.size());
+                SessionInformation sessionInformation = new SessionInformation(name, location, time_from, time_to, studentList, topicHashMap, trainerList);
+                Log.i("Ankit", studentList.size() + " " + topicList.size() + " " + trainerList.size());
                 //getDatabaseReference().child("dfdsf").child("hello").setValue("data");
                 getDatabaseReference().child(Nodes.session).child(sessionInformation.name).setValue(sessionInformation);
                 progressDialog.hide();
@@ -344,7 +330,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Toast.makeText(NewSessionBottomActivity.this, "canceled", Toast.LENGTH_SHORT).show();
-                Log.i("Ankit","canceled");
+                Log.i("Ankit", "canceled");
 
             }
         });

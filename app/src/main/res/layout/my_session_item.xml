@@ -8,18 +8,21 @@
     <TextView
         android:id="@+id/sessionName"
         android:layout_width="match_parent"
-        android:text="dfsdfdsfsd"
+        android:text="Session name"
         android:textSize="20sp"
         android:gravity="center_vertical"
         android:layout_height="35sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold"
+        android:textAlignment="center"/>
 
     <View style="@style/Divider"/>
     <TextView
         android:id="@+id/timming"
-        android:text="dfsfds"
+        android:text="From :       To :     "
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:gravity="center_vertical"
-        android:layout_height="35sp" />
+        android:layout_height="35sp"
+        android:textAlignment="center"
+        android:textStyle="bold"/>
 </LinearLayout>

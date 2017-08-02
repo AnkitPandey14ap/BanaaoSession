@@ -46,7 +46,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(ProfileActivity.this,CompletedSessionActivity.class));
-                finish();
+                //finish();
             }
         });
 
@@ -73,7 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void logOut() {
         FirebaseAuth.getInstance().signOut();
         startActivity(new Intent(ProfileActivity.this,LoginActivity.class));
-        Toast.makeText(this, "Log Out", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Log Out successfully", Toast.LENGTH_SHORT).show();
         finish();
     }
 }

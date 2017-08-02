@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="@dimen/activity_vertical_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
     android:background="@color/colorBackground"
     tools:context="com.example.krishnapandey.banaaosession.Activities.UpdateActivity">
@@ -16,7 +18,7 @@
             android:id="@+id/sessionNameEditText"
             android:textSize="20sp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:layout_height="35sp"
             android:text="Session Name"
             android:background="@drawable/edittext_border"
@@ -29,14 +31,15 @@
             android:text="Location"
             android:layout_below="@+id/sessionNameEditText"
             android:background="@drawable/edittext_border"
-            android:layout_marginTop="@dimen/activity_vertical_margin"/>
+            android:layout_marginTop="@dimen/activity_vertical_margin"
+            android:gravity="center"/>
         <TextView
             android:id="@+id/topicEditText"
             android:textSize="20sp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:layout_height="35sp"
-            android:text="Topic"
+            android:text="Topic List (Click here)"
             android:layout_below="@+id/locationEditText"
             android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
@@ -44,7 +47,7 @@
             android:id="@+id/timmingEditText"
             android:textSize="20sp"
             android:layout_width="match_parent"
-            android:gravity="center_vertical"
+            android:gravity="center"
             android:layout_height="35sp"
             android:text="Timming"
             android:layout_below="@+id/topicEditText"
@@ -70,18 +73,19 @@
             <TextView
                 android:textSize="20sp"
                 android:layout_width="0dp"
-                android:gravity="center_vertical"
                 android:layout_height="35sp"
-                android:text="Status"
-                android:layout_weight="1"/>
+                android:text="Status : "
+                android:layout_weight="1"
+                android:paddingLeft="@dimen/activity_horizontal_margin"
+                android:gravity="center_vertical"/>
             <TextView
                 android:id="@+id/status"
                 android:layout_width="0dp"
-                android:gravity="center_vertical"
                 android:layout_height="35sp"
                 android:textSize="20sp"
                 android:layout_weight="1"
-                android:text="Pending"/>
+                android:text="Not Completed"
+                android:gravity="center"/>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -93,7 +97,7 @@
 
         <Button
             android:id="@+id/buttonLoadPicture"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Load Picture"
             android:layout_gravity="center"
@@ -102,14 +106,22 @@
             android:id="@+id/feedbackEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="feedback"
-            android:layout_below="@+id/buttonLoadPicture"/>
+            android:hint="Write here..."
+            android:layout_below="@+id/buttonLoadPicture"
+            android:background="@drawable/edittext_border"
+            android:minHeight="60dp"/>
         <Button
             android:id="@+id/sendButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="send"
-            android:layout_below="@id/feedbackEditText"
-            android:layout_alignParentBottom="true"/>
+            android:layout_below="@id/feedbackEditText"/>
+        <Button
+            android:id="@+id/attendanceButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/sendButton"
+            android:text="Attendance"/>
     </RelativeLayout>
+
 </ScrollView>

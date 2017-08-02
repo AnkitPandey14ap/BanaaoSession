@@ -2,6 +2,7 @@ package com.example.krishnapandey.banaaosession.Activities;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.database.Cursor;
@@ -28,6 +29,9 @@ import com.example.krishnapandey.banaaosession.Adapters.MyAdapter;
 import com.example.krishnapandey.banaaosession.Adapters.MyCustomAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.example.krishnapandey.banaaosession.DataClasses.UserInformation;
+import com.example.krishnapandey.banaaosession.PopUps.AttendancePopUp;
+import com.example.krishnapandey.banaaosession.PopUps.ListSelectionPopUp;
 import com.example.krishnapandey.banaaosession.PopUps.TopicPopUp;
 import com.example.krishnapandey.banaaosession.R;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -37,10 +41,13 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -55,13 +62,17 @@ public class UpdateActivity extends AppCompatActivity {
     private TextView feedbackEditText;
     private CheckBox statusCheckBox;
     private Button sendButton;
+    private Button attendanceButton;
+
     private ListView listView;
 
 
-    public HashMap<String, String> names;
+    public HashMap<String, String> names=new HashMap<>();
     private MyCustomAdapter adapter;
 
     String sessionName;
+
+    private DatabaseReference databseRef;
 
 
     //forRecyclerView
@@ -89,7 +100,7 @@ public class UpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_update);
         Log.i("Ankit","onCreate");
 
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
         sessionName = intent.getStringExtra("NAME");
         Log.i("Ankit",sessionName);
 
@@ -103,6 +114,7 @@ public class UpdateActivity extends AppCompatActivity {
 
 //        loadImage from gallery
         loadImage();
+//        loadImageFromFirebase();
 
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,10 +126,62 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent1 = new Intent(UpdateActivity.this, TopicPopUp.class);
+                intent1.putExtra("NAME", sessionName);
                 startActivity(intent1);
             }
         });
+        status.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (status.getText().equals("Completed")) {
+                    status.setText("Not Complete");
+                    status.setBackgroundColor(0xfff00000);
+                    databseRef.child("completed").setValue(false);
 
+                } else {
+                    status.setText("Completed");
+                    status.setBackgroundColor(0x00000000);
+                    databseRef.child("completed").setValue(true);
+
+                }
+            }
+        });
+
+        attendanceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent2=new Intent(UpdateActivity.this, AttendancePopUp.class);
+                Log.i("Ankit","send name before "+sessionName);
+                intent2.putExtra("NAME", sessionName);
+                startActivityForResult(intent2,5);
+            }
+        });
+    }
+
+    private void loadImageFromFirebase() {
+
+        File localFile = null;
+        try {
+            localFile = File.createTempFile("images", "jpg");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        StorageReference riversRef = storageRef.child("images/rivers.jpg");
+        riversRef.getFile(localFile)
+                .addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                        // Successfully downloaded data to local file
+                        // ...
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle failed download
+                // ...
+            }
+        });
     }
 
     private void loadImage() {
@@ -141,20 +205,21 @@ public class UpdateActivity extends AppCompatActivity {
 
     private void fetchData() {
 
-        DatabaseReference    databseRef=NewSessionBottomActivity.getDatabaseReference().child(Nodes.session).child(sessionName);
+        databseRef=NewSessionBottomActivity.getDatabaseReference().child(Nodes.session).child(sessionName);
         databseRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 SessionInformation sessionInformation = dataSnapshot.getValue(SessionInformation.class);
-
-
+                names = sessionInformation.trainer;
                 sessionNameEditText.setText(sessionInformation.name);
                 locationEditText.setText(sessionInformation.location);
                 //topicEditText.setText(sessionInformation.topic);
-                timmingEditText.setText("From : "+sessionInformation.timeTo+"  To : "+sessionInformation.timeTo);
+                timmingEditText.setText("From : "+sessionInformation.timeTo+" - To : "+sessionInformation.timeTo);
                 if (sessionInformation.completed) {
-                    status.setText("completed");
+                    status.setText("Completed");
+                    status.setBackgroundColor(0x00000000);
                 }
+
             }
 
             @Override
@@ -202,15 +267,13 @@ public class UpdateActivity extends AppCompatActivity {
                             }
                         });
 
-            }else {
-                Toast.makeText(this, "You haven't picked Image",
-                        Toast.LENGTH_LONG).show();
+            }
             /*mRecyclerView.setLayoutManager(mLayoutManager);
             mAdapter=new MyAdapter(list,MainActivity.this);
             mRecyclerView.setAdapter(mAdapter);
 */
 
-            }
+
         }catch (Exception e) {
             Toast.makeText(this, "Something went wrong", Toast.LENGTH_LONG)
                     .show();
@@ -219,14 +282,44 @@ public class UpdateActivity extends AppCompatActivity {
         mAdapter=new MyAdapter(list,UpdateActivity.this);
         mRecyclerView.setAdapter(mAdapter);
 
-
     }
 
     void sendMail() {
+/*
+        final ProgressDialog progressDialog=ProgressDialog.show(this, "Waiting...", "Please wait...");
+        final ArrayList<String> arrayList = new ArrayList<>();
+        NewSessionBottomActivity.getDatabaseReference().child(Nodes.user).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                for (DataSnapshot child : children ) {
+                    UserInformation userInformation = child.getValue(UserInformation.class);
+                    //arrayList.add(new UserInformation(userInformation.name, userInformation.timeFrom, userInformation.timeTo));
+                    for (int i = 0; i < names.size(); i++) {
+                        if (userInformation.name.equals(names.get(i))) {
+                            arrayList.add(userInformation.email);
+                            Log.i("Ankit", String.valueOf(arrayList.size()));
+                            Log.i("Ankit", String.valueOf(arrayList));
+                        }
+                    }
+                }
+            progressDialog.dismiss();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        Log.i("Ankit", String.valueOf(arrayList));
+*/
+
         Intent i = new Intent(Intent.ACTION_SEND);
         i.setType("message/rfc822");
         i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com","hamarapandey@gmail.com"});
-        i.putExtra(Intent.EXTRA_SUBJECT, sessionNameEditText.getText()+" uodate");
+//        i.putExtra(Intent.EXTRA_EMAIL  , arrayList);
+        i.putExtra(Intent.EXTRA_SUBJECT, sessionNameEditText.getText()+" update");
         i.putExtra(Intent.EXTRA_TEXT   , feedbackEditText.getText().toString());
         try {
             startActivity(Intent.createChooser(i, "Send mail..."));
@@ -246,6 +339,7 @@ public class UpdateActivity extends AppCompatActivity {
 //        statusCheckBox = (CheckBox) findViewById(R.id.statusCheckBox);
 
         sendButton = (Button) findViewById(R.id.sendButton);
+        attendanceButton = (Button) findViewById(R.id.attendanceButton);
         listView = (ListView) findViewById(R.id.listView);
     }
     public void verifyStoragePermissions(Activity activity) {

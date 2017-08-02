@@ -9,6 +9,8 @@ public class Nodes {
     public static String session= "session";
     public static String allTopics= "all topics";
     public static String allstudents= "allstudents";
+    public static String topic= "topic";
+    public static String attendance= "attendance";
 
 
 }
