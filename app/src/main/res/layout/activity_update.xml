@@ -18,10 +18,8 @@
             android:id="@+id/sessionNameEditText"
             android:textSize="20sp"
             android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="35sp"
+            android:layout_height="wrap_content"
             android:text="Session Name"
-            android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <TextView
             android:id="@+id/locationEditText"
@@ -30,9 +28,7 @@
             android:layout_height="35sp"
             android:text="Location"
             android:layout_below="@+id/sessionNameEditText"
-            android:background="@drawable/edittext_border"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
-            android:gravity="center"/>
+            android:layout_marginTop="@dimen/activity_vertical_margin"/>
         <RelativeLayout
             android:id="@+id/topic_relative_layout"
             android:layout_width="match_parent"
@@ -43,10 +39,9 @@
                 android:id="@+id/topicEditText"
                 android:textSize="20sp"
                 android:layout_width="match_parent"
-                android:gravity="center"
                 android:layout_height="35sp"
-                android:text="Topics"
-                android:background="@drawable/edittext_border"/>
+                android:background="@drawable/edittext_border"
+                android:text="Topics"/>
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="30sp"
@@ -58,26 +53,17 @@
             android:id="@+id/timmingEditText"
             android:textSize="20sp"
             android:layout_width="match_parent"
-            android:gravity="center"
             android:layout_height="35sp"
             android:text="Timming"
             android:layout_below="@+id/topic_relative_layout"
-            android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
-        <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timmingEditText"
-            android:background="@drawable/edittext_border"
-            android:layout_marginTop="@dimen/activity_vertical_margin">
-        </ListView>
+
 
         <LinearLayout
             android:id="@+id/statusLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/listView"
+            android:layout_below="@+id/timmingEditText"
             android:orientation="horizontal"
             android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin">
@@ -96,7 +82,8 @@
                 android:textSize="20sp"
                 android:layout_weight="1"
                 android:text="Not Completed"
-                android:gravity="center"/>
+                android:gravity="center"
+                android:background="#FF0000"/>
         </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
@@ -109,7 +96,7 @@
         <Button
             android:id="@+id/buttonLoadPicture"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:text="Load Picture"
             android:layout_gravity="center"
             android:layout_below="@+id/recycler_view"/>

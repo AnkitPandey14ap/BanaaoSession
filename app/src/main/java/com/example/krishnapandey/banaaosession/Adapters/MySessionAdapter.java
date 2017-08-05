@@ -55,8 +55,8 @@ public class MySessionAdapter extends BaseAdapter implements ListAdapter {
         TextView sessionName= (TextView) view.findViewById(R.id.sessionName);
         TextView timming= (TextView) view.findViewById(R.id.timming);
 
-        sessionName.setText("Session : "+sessionList.get(position).getSessionName());
-        timming.setText("From   "+sessionList.get(position).getTimeFrom()+"     To   "+sessionList.get(position).getTimeTo());
+        sessionName.setText(position+1+". Session : "+sessionList.get(position).getSessionName());
+        timming.setText("      From   "+sessionList.get(position).getTimeFrom()+"     To   "+sessionList.get(position).getTimeTo());
 
 
         return view;

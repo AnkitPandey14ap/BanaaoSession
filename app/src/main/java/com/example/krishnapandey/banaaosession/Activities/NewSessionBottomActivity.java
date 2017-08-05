@@ -241,17 +241,25 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     public void setTime(final boolean time) {
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
-        int minute = mcurrentTime.get(Calendar.MINUTE);
+        final int minute = mcurrentTime.get(Calendar.MINUTE);
         TimePickerDialog mTimePicker;
         mTimePicker = new TimePickerDialog(NewSessionBottomActivity.this, new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                String hour = String.valueOf(selectedHour);
+                String minutes= String.valueOf(selectedMinute);
+                if(selectedHour<10) {
+                    hour = "0" + selectedHour;
+                }if(selectedMinute<10) {
+                    minutes = "0" + selectedMinute;
+                }
+
                 if (time) {
-                    time_from = selectedHour + " : " + selectedMinute;
-                    input_from.setText(selectedHour + " : " + selectedMinute);
+                    time_from = hour + " : " + minute;
+                    input_from.setText(hour+ " : " + minutes);
                 } else {
-                    time_to = selectedHour + " : " + selectedMinute;
-                    input_to.setText(selectedHour + " : " + selectedMinute);
+                    time_to = hour + " : " + minute;
+                    input_to.setText(hour+ " : " + minutes);
                 }
             }
         }, hour, minute, true);//Yes 24 hour time

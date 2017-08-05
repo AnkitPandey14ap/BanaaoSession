@@ -3,7 +3,6 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="@dimen/activity_horizontal_margin"
-    android:background="@drawable/session_list_border"
     android:paddingLeft="16dp"
     android:paddingTop="4dp"
     android:paddingBottom="4dp">
@@ -12,17 +11,15 @@
         android:layout_width="match_parent"
         android:text="Session name"
         android:textSize="20sp"
-        android:gravity="center_vertical"
         android:layout_height="wrap_content"
         android:textColor="#000000"
-        android:textStyle="bold"/>
+        android:textStyle="normal"/>
 
     <TextView
         android:id="@+id/timming"
         android:text="From :       To :     "
-        android:textSize="16sp"
+        android:textSize="12sp"
         android:layout_width="match_parent"
-        android:gravity="center_vertical"
         android:layout_height="wrap_content"
         android:textColor="#000000"/>
 </LinearLayout>

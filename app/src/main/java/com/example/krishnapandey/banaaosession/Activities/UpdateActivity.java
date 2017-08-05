@@ -190,7 +190,7 @@ public class UpdateActivity extends AppCompatActivity {
         mRecyclerView.setHasFixedSize(true);
         mLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false);
 
-        Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
+        /*Button buttonLoadImage = (Button) findViewById(R.id.buttonLoadPicture);
         buttonLoadImage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
@@ -199,7 +199,7 @@ public class UpdateActivity extends AppCompatActivity {
                         android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
                 startActivityForResult(i, RESULT_LOAD_IMAGE);
             }
-        });
+        });*/
 
     }
 
@@ -211,8 +211,8 @@ public class UpdateActivity extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 SessionInformation sessionInformation = dataSnapshot.getValue(SessionInformation.class);
                 names = sessionInformation.trainer;
-                sessionNameEditText.setText(sessionInformation.name);
-                locationEditText.setText(sessionInformation.location);
+                sessionNameEditText.setText("Name: "+sessionInformation.name);
+                locationEditText.setText("Location: "+sessionInformation.location);
                 //topicEditText.setText(sessionInformation.topic);
                 timmingEditText.setText("From : "+sessionInformation.timeTo+" - To : "+sessionInformation.timeTo);
                 if (sessionInformation.completed) {
