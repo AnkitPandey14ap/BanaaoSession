@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.krishnapandey.banaaosession.MainActivity;
 import com.example.krishnapandey.banaaosession.R;
 import com.example.krishnapandey.banaaosession.Receiver.NetworkChangeReceiver;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -84,7 +85,8 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.i(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+                    //startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+                    startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     finish();
                 } else {
                     // User is signed out

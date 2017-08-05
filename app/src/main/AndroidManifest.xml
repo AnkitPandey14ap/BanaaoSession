@@ -43,9 +43,9 @@
             android:name=".Activities.NewSessionBottomActivity"
             android:label="@string/title_activity_new_session_bottom" />
         <activity
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
             android:name=".PopUps.ListSelectionPopUp"
-            android:label="@string/title_activity_new_session_bottom" />
+            android:label="@string/title_activity_new_session_bottom"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
         <activity
             android:name=".Activities.MySessionActivityNew"
             android:label="@string/title_activity_my_session_new" />
@@ -53,9 +53,13 @@
             android:name=".PopUps.TopicPopUp"
             android:label="@string/title_activity_topic_pop_up" />
         <activity
-            android:theme="@style/Theme.AppCompat.DayNight.Dialog"
             android:name=".PopUps.AttendancePopUp"
-            android:label="@string/title_activity_attendance_pop_up"></activity>
+            android:label="@string/title_activity_attendance_pop_up"
+            android:theme="@style/Theme.AppCompat.DayNight.Dialog" />
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/title_activity_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

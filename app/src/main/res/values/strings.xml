@@ -22,4 +22,10 @@
     <string name="title_activity_my_session_new">MySessionActivityNew</string>
     <string name="title_activity_topic_pop_up">TopicPopUp</string>
     <string name="title_activity_attendance_pop_up">AttendancePopUp</string>
+    <string name="title_activity_main">MainActivity</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
 </resources>
