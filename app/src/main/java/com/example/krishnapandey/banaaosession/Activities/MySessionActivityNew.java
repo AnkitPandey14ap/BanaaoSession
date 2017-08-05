@@ -33,13 +33,13 @@ public class MySessionActivityNew extends AppCompatActivity {
 
     private static final String T = "Ankit";
     private ListView listView;
-    private BottomNavigationView navigation;
+//    private BottomNavigationView navigation;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
 
     ArrayList<MySessionData> sessionList = new ArrayList<>();
     private ProgressDialog progressDialog;
-
+/*
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -58,7 +58,7 @@ public class MySessionActivityNew extends AppCompatActivity {
             return false;
         }
 
-    };
+    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +66,7 @@ public class MySessionActivityNew extends AppCompatActivity {
         setContentView(R.layout.activity_my_session_new);
 
         initialization();
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+//        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         progressDialog = new ProgressDialog(MySessionActivityNew.this);
         progressDialog.setMessage("Loading.....");
@@ -120,7 +120,7 @@ public class MySessionActivityNew extends AppCompatActivity {
     }
 
     private void initialization() {
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
+//        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         listView = (ListView) findViewById(R.id.listView);
         list = new ArrayList<>();
 

@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -31,32 +32,13 @@ import java.util.HashMap;
 public class AttendancePopUp extends AppCompatActivity {
 
     private TextView mTextMessage;
-    private BottomNavigationView navigation;
     private ListView listView;
     private MyPopUpAdapter myPopUpAdapter;
     ArrayList<UserData> list = new ArrayList<>();
     ArrayList<String> arrayList = new ArrayList<>();
-
+    private Button save_action;
+    private Button cancel_action;
     private String sessionName;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    finish();
-                    return true;
-                case R.id.navigation_dashboard:
-                    saveData();
-                    finish();
-                    return true;
-
-            }
-            return false;
-        }
-
-    };
 
     private void saveData() {
 
@@ -108,7 +90,6 @@ public class AttendancePopUp extends AppCompatActivity {
         sessionName = getIntent().getStringExtra("NAME");
         Log.i("Ankit", "name " + sessionName);
         initialisze();
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         getRef().child("studentsName").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -124,6 +105,19 @@ public class AttendancePopUp extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+        save_action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                saveData();
+                finish();
+            }
+        });
+        cancel_action.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
 
@@ -155,10 +149,12 @@ public class AttendancePopUp extends AppCompatActivity {
 
     private void initialisze() {
         mTextMessage = (TextView) findViewById(R.id.message);
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         listView = (ListView) findViewById(R.id.listView);
         myPopUpAdapter = new MyPopUpAdapter(this, list);
         listView.setAdapter(myPopUpAdapter);
+
+        save_action = (Button) findViewById(R.id.save_action);
+        cancel_action = (Button) findViewById(R.id.cancel_action);
 
 
     }

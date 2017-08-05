@@ -37,14 +37,21 @@
         </ListView>
 
     </RelativeLayout>
-
-    <android.support.design.widget.BottomNavigationView
-        android:id="@+id/navigation"
-        android:layout_width="match_parent"
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+    <Button
+        android:id="@+id/cancel_action"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
-        android:background="?android:attr/windowBackground"
-        app:menu="@menu/navigation"
-        android:backgroundTint="@color/colorButton"/>
+        android:layout_weight="1"
+        android:text="cancel"/>
+    <Button
+        android:id="@+id/save_action"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="save"/>
 
+</LinearLayout>
 </LinearLayout>
