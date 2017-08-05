@@ -3,7 +3,6 @@ package com.example.krishnapandey.banaaosession.Activities;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -38,32 +37,12 @@ public class CompletedSessionActivity extends AppCompatActivity {
 
     private static final String T = "Ankit";
     private ListView listView;
-    private BottomNavigationView navigation;
     private ArrayList<String> list;
     private ArrayAdapter<String> adapter;
 
     ArrayList<MySessionData> sessionList = new ArrayList<>();
     private ProgressDialog progressDialog;
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    finish();
-                    //sessionNameEditText.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    //sessionNameEditText.setText(R.string.title_dashboard);
-                    return true;
-
-            }
-            return false;
-        }
-
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +50,6 @@ public class CompletedSessionActivity extends AppCompatActivity {
         setContentView(R.layout.activity_my_session_new);
 
         initialization();
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         progressDialog = new ProgressDialog(CompletedSessionActivity.this);
         progressDialog.setMessage("Loading.....");
@@ -127,7 +105,6 @@ public class CompletedSessionActivity extends AppCompatActivity {
     }
 
     private void initialization() {
-        navigation = (BottomNavigationView) findViewById(R.id.navigation);
         listView = (ListView) findViewById(R.id.listView);
         list = new ArrayList<>();
 

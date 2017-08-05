@@ -5,8 +5,10 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.preference.PreferenceManager;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -98,7 +100,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void signIn() {
-        String email = input_email.getText().toString().trim();
+        final String email = input_email.getText().toString().trim();
         String password=input_password.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)) {
@@ -130,9 +132,17 @@ public class LoginActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                         } else {
                             Log.i(TAG, "signInWithEmail:succesful");
+                            SharedPreferences prefs = getSharedPreferences("com.example.krishnapandey.banaaosession", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("UserName", email);
+                            Log.i("Ankit",email);
+                            editor.commit(); // This line is IMPORTANT. If you miss this one its not gonna work
+
+
                             Toast.makeText(LoginActivity.this, "succesfully logged-in",
                                     Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
+                            Intent intent=new Intent(LoginActivity.this,MainActivity.class);
+                            startActivity(intent);
                             finish();
                         }
                         progressDialog.hide();

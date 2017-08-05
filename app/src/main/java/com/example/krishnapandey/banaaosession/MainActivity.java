@@ -2,6 +2,7 @@ package com.example.krishnapandey.banaaosession;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -18,7 +19,11 @@ import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.krishnapandey.banaaosession.Activities.CompletedSessionActivity;
+import com.example.krishnapandey.banaaosession.Activities.LoginActivity;
 import com.example.krishnapandey.banaaosession.Activities.MySessionActivityNew;
 import com.example.krishnapandey.banaaosession.Activities.NewSessionBottomActivity;
 import com.example.krishnapandey.banaaosession.Activities.ProfileActivity;
@@ -27,6 +32,7 @@ import com.example.krishnapandey.banaaosession.Adapters.MySessionAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.MySessionData;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -109,6 +115,7 @@ public class MainActivity extends AppCompatActivity
 
             }
         });
+        setUserName();
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -168,18 +175,23 @@ public class MainActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        if (id == R.id.nav_workshop) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_students) {
 
-        } else if (id == R.id.nav_manage) {
+        }else if (id == R.id.nav_workshop_complete) {
+            startActivity(new Intent(MainActivity.this,CompletedSessionActivity.class));
+
+
+        }else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_share) {
 
         } else if (id == R.id.nav_send) {
 
+        } else if (id == R.id.log_out) {
+
+            logOut();
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -213,5 +225,25 @@ public class MainActivity extends AppCompatActivity
     public DatabaseReference getDatabaseReference() {
 
         return NewSessionBottomActivity.getDatabaseReference();
+    }
+
+    private void logOut() {
+        FirebaseAuth.getInstance().signOut();
+        startActivity(new Intent(MainActivity.this,LoginActivity.class));
+        Toast.makeText(this, "Log Out successfully", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
+    void setUserName() {
+        SharedPreferences prefs = getSharedPreferences("com.example.krishnapandey.banaaosession",
+                MODE_PRIVATE);
+        String username = prefs.getString("UserName",
+                "Username1");
+
+
+        NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
+        View headerView = navigationView.getHeaderView(0);
+        TextView navUsername = (TextView) headerView.findViewById(R.id.usernameTextView);
+        navUsername.setText(username);
     }
 }
