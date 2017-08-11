@@ -1,5 +1,6 @@
 package com.example.krishnapandey.banaaosession.Activities;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
@@ -40,6 +43,8 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
+import static android.R.attr.startYear;
+
 public class NewSessionBottomActivity extends AppCompatActivity {
 
     private static final String TAG = "Ankit";
@@ -52,6 +57,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     private Button add_student_action;
     private Button add_topic_action;
     private Button add_trainer_action;
+    private TextView input_date;
 
     Spinner spinnerStudents;
 
@@ -68,9 +74,11 @@ public class NewSessionBottomActivity extends AppCompatActivity {
     private ListView lView;
     private String time_from;
     private String time_to;
+    private String sessionDate;
     private ProgressDialog progressDialog;
     private static DatabaseReference databaseReference;
     private static FirebaseAuth mAuth;
+
 
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -105,6 +113,15 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         intialize();
         getDatabaseReference();
 
+
+        RelativeLayout date_button = (RelativeLayout) findViewById(R.id.date_button);
+        date_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                TextView input_date = (TextView) findViewById(R.id.input_date);
+                setDate();
+            }
+        });
 
         to_button.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -268,6 +285,29 @@ public class NewSessionBottomActivity extends AppCompatActivity {
 
     }
 
+    public void setDate() {
+        Calendar mcurrentTime = Calendar.getInstance();
+        int year = mcurrentTime.get(Calendar.YEAR);
+        final int month = mcurrentTime.get(Calendar.MONTH);
+        final int date = mcurrentTime.get(Calendar.DAY_OF_MONTH);
+        DatePickerDialog mTimePicker;
+        mTimePicker = new DatePickerDialog(NewSessionBottomActivity.this, new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
+//                Toast.makeText(NewSessionBottomActivity.this, "Date: "+i+i1+i2, Toast.LENGTH_SHORT).show();
+                input_date = (TextView) findViewById(R.id.input_date);
+                input_date.setText(i2+"/"+i1+"/"+i);
+                sessionDate = i2+"/"+i1+"/"+i;
+            }
+        },year,month,date);//Yes 24 hour time
+        mTimePicker.setTitle("Select Time");
+        mTimePicker.show();
+
+    }
+
+
+
 
     private void getDetail() {
         if (studentList.size() == 0) {
@@ -297,7 +337,10 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             //Toast.makeText(this, "enter password", Toast.LENGTH_SHORT).show();
             input_location.requestFocus();
             return;
-        } else if (time_from.equals("00:00")) {
+        }else if(input_date.equals("DD/MM/YY")){
+            Toast.makeText(this, "Set Date First", Toast.LENGTH_SHORT).show();
+            return;
+        }else if (time_from.equals("00:00")) {
             Toast.makeText(this, "Set Time First", Toast.LENGTH_SHORT).show();
             return;
         } else if (time_to.equals("00:00")) {
@@ -310,7 +353,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
         databaseReference.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
-                SessionInformation sessionInformation = new SessionInformation(name, location, time_from, time_to, studentList, topicHashMap, trainerList);
+                SessionInformation sessionInformation = new SessionInformation(name, location, time_from, time_to, studentList, topicHashMap, trainerList,sessionDate);
                 Log.i("Ankit", studentList.size() + " " + topicList.size() + " " + trainerList.size());
                 //getDatabaseReference().child("dfdsf").child("hello").setValue("data");
                 getDatabaseReference().child(Nodes.session).child(sessionInformation.name).setValue(sessionInformation);

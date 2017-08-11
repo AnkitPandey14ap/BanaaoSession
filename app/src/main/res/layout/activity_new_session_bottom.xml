@@ -9,7 +9,7 @@
     android:background="@color/colorBackground"
     tools:context="com.example.krishnapandey.banaaosession.Activities.NewSessionBottomActivity">
 
-    <FrameLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1">
@@ -27,7 +27,7 @@
                 android:paddingLeft="8dp"
                 android:background="@drawable/edittext_border"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_weight="1"/>
+                android:layout_weight="0"/>
             <EditText android:id="@+id/input_location"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
@@ -36,14 +36,36 @@
                 android:paddingLeft="8dp"
                 android:background="@drawable/edittext_border"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_weight="1"/>
+                android:layout_weight="0"/>
+            <RelativeLayout
+                android:id="@+id/date_button"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/activity_horizontal_margin"
+                android:background="@drawable/edittext_border"
+                android:layout_marginTop="@dimen/activity_vertical_margin"
+                android:layout_weight="0">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DATE"
+                    android:layout_alignParentLeft="true"
+                    android:textSize="16sp"/>
+                <TextView
+                    android:id="@+id/input_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="DD/MM/YY"
+                    android:layout_alignParentRight="true"
+                    android:textSize="16sp"/>
+            </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:background="@drawable/edittext_border"
                 android:layout_marginTop="@dimen/activity_vertical_margin"
-                android:layout_weight="2">
+                android:layout_weight="0">
                 <RelativeLayout
                     android:id="@+id/from_button"
                     android:layout_width="match_parent"
@@ -176,7 +198,7 @@
             </LinearLayout>
         </LinearLayout>
 
-    </FrameLayout>
+    </ScrollView>
     <android.support.design.widget.BottomNavigationView
         android:id="@+id/navigation"
         android:layout_width="match_parent"

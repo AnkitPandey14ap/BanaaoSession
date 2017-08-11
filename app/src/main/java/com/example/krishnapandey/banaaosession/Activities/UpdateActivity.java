@@ -29,6 +29,7 @@ import com.example.krishnapandey.banaaosession.Adapters.MyAdapter;
 import com.example.krishnapandey.banaaosession.Adapters.MyCustomAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.example.krishnapandey.banaaosession.DataClasses.StudentInfo;
 import com.example.krishnapandey.banaaosession.DataClasses.UserInformation;
 import com.example.krishnapandey.banaaosession.PopUps.AttendancePopUp;
 import com.example.krishnapandey.banaaosession.PopUps.ListSelectionPopUp;
@@ -52,6 +53,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 public class UpdateActivity extends AppCompatActivity {
 
@@ -60,14 +62,12 @@ public class UpdateActivity extends AppCompatActivity {
     private TextView topicEditText;
     private TextView timmingEditText;
     private TextView feedbackEditText;
-    private CheckBox statusCheckBox;
     private Button sendButton;
     private Button attendanceButton;
 
     private ListView listView;
 
-
-    public HashMap<String, String> names=new HashMap<>();
+    private ArrayList<String> keys;
     private MyCustomAdapter adapter;
 
     String sessionName;
@@ -92,13 +92,16 @@ public class UpdateActivity extends AppCompatActivity {
 
     //Storage Reference
     private StorageReference storageRef;
-    private TextView status;
+    private String TAG="Ankit";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update);
         Log.i("Ankit","onCreate");
+
+        getSupportActionBar().setTitle("Workshop");
+
 
         final Intent intent = getIntent();
         sessionName = intent.getStringExtra("NAME");
@@ -119,7 +122,12 @@ public class UpdateActivity extends AppCompatActivity {
         sendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                sendMail();
+                try{
+                    sendMail();
+                }catch (Exception e){
+                    Log.i("Ankit", e+"");
+                    Toast.makeText(UpdateActivity.this, "error "+e, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         topicEditText.setOnClickListener(new View.OnClickListener() {
@@ -128,22 +136,6 @@ public class UpdateActivity extends AppCompatActivity {
                 Intent intent1 = new Intent(UpdateActivity.this, TopicPopUp.class);
                 intent1.putExtra("NAME", sessionName);
                 startActivity(intent1);
-            }
-        });
-        status.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (status.getText().equals("Completed")) {
-                    status.setText("Not Complete");
-                    status.setBackgroundColor(0xfff00000);
-                    databseRef.child("completed").setValue(false);
-
-                } else {
-                    status.setText("Completed");
-                    status.setBackgroundColor(0x00000000);
-                    databseRef.child("completed").setValue(true);
-
-                }
             }
         });
 
@@ -210,15 +202,15 @@ public class UpdateActivity extends AppCompatActivity {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 SessionInformation sessionInformation = dataSnapshot.getValue(SessionInformation.class);
-                names = sessionInformation.trainer;
+                keys = new ArrayList<String>(sessionInformation.studentsName.keySet());
+                Log.i("Ankit", "224 key "+keys.size());
+                Log.i("Ankit", "224 key: "+keys);
+
                 sessionNameEditText.setText("Name: "+sessionInformation.name);
+
                 locationEditText.setText("Location: "+sessionInformation.location);
                 //topicEditText.setText(sessionInformation.topic);
                 timmingEditText.setText("From : "+sessionInformation.timeTo+" - To : "+sessionInformation.timeTo);
-                if (sessionInformation.completed) {
-                    status.setText("Completed");
-                    status.setBackgroundColor(0x00000000);
-                }
 
             }
 
@@ -285,25 +277,53 @@ public class UpdateActivity extends AppCompatActivity {
     }
 
     void sendMail() {
-/*
+
         final ProgressDialog progressDialog=ProgressDialog.show(this, "Waiting...", "Please wait...");
-        final ArrayList<String> arrayList = new ArrayList<>();
-        NewSessionBottomActivity.getDatabaseReference().child(Nodes.user).addValueEventListener(new ValueEventListener() {
+        final ArrayList<String> arrayList1 = new ArrayList<>();
+        NewSessionBottomActivity.getDatabaseReference().child(Nodes.allstudents).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children ) {
-                    UserInformation userInformation = child.getValue(UserInformation.class);
+                    StudentInfo studentInfo = child.getValue(StudentInfo.class);
                     //arrayList.add(new UserInformation(userInformation.name, userInformation.timeFrom, userInformation.timeTo));
-                    for (int i = 0; i < names.size(); i++) {
-                        if (userInformation.name.equals(names.get(i))) {
-                            arrayList.add(userInformation.email);
-                            Log.i("Ankit", String.valueOf(arrayList.size()));
-                            Log.i("Ankit", String.valueOf(arrayList));
+                    for (int i = 0; i < keys.size(); i++) {
+                        Log.i("Ankit", "for current key  "+keys.get(i));
+                        if (studentInfo.name.equals(keys.get(i))) {
+                            arrayList1.add(studentInfo.email);
+                            Log.i("Ankit","in if "+ String.valueOf(arrayList1));
                         }
                     }
+                    //Log.i("Ankit", userInformation.email);
+                    //arrayList.add("hello");
+                    //arrayList.add(userInformation.email);
+
                 }
             progressDialog.dismiss();
+                Log.i("Ankit", "list:  "+String.valueOf(arrayList1));
+                Log.i("Ankit", "list:  "+arrayList1.size());
+
+                Intent i = new Intent(Intent.ACTION_SEND);
+                i.setType("message/rfc822");
+
+                String[] mailList = new String[arrayList1.size()];
+                Log.i(TAG, "sendMail: "+arrayList1.size());
+                for (int j = 0; j < arrayList1.size(); j++) {
+                    mailList[j] = arrayList1.get(j);
+                    Log.i("Ankit", "sendMail: "+arrayList1.get(j));
+
+                }
+                i.putExtra(Intent.EXTRA_EMAIL  ,mailList);
+//        i.putExtra(Intent.EXTRA_EMAIL  , arrayList);
+                i.putExtra(Intent.EXTRA_SUBJECT, sessionNameEditText.getText()+" update");
+                i.putExtra(Intent.EXTRA_TEXT   , feedbackEditText.getText().toString());
+                try {
+                    startActivity(Intent.createChooser(i, "Send mail..."));
+                } catch (android.content.ActivityNotFoundException ex) {
+                    Toast.makeText(UpdateActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+                }
+
+
             }
 
             @Override
@@ -311,32 +331,23 @@ public class UpdateActivity extends AppCompatActivity {
 
             }
         });
+/*
 
-        Log.i("Ankit", String.valueOf(arrayList));
+        Log.i("Ankit", "list:  "+String.valueOf(arrayList));
+        Log.i("Ankit", "list:  "+arrayList.size());
 */
 
-        Intent i = new Intent(Intent.ACTION_SEND);
-        i.setType("message/rfc822");
-        i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"recipient@example.com","hamarapandey@gmail.com"});
-//        i.putExtra(Intent.EXTRA_EMAIL  , arrayList);
-        i.putExtra(Intent.EXTRA_SUBJECT, sessionNameEditText.getText()+" update");
-        i.putExtra(Intent.EXTRA_TEXT   , feedbackEditText.getText().toString());
-        try {
-            startActivity(Intent.createChooser(i, "Send mail..."));
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(UpdateActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
-        }
+//simple way to send mail for a prementioned email ids only
+
     }
     void initialize() {
         sessionNameEditText = (TextView) findViewById(R.id.sessionNameEditText);
         locationEditText = (TextView) findViewById(R.id.locationEditText);
-        status = (TextView) findViewById(R.id.status);
         timmingEditText= (TextView) findViewById(R.id.timmingEditText);
         feedbackEditText= (TextView) findViewById(R.id.feedbackEditText);
         topicEditText = (TextView) findViewById(R.id.topicEditText);
 
         list = new ArrayList<String>();
-//        statusCheckBox = (CheckBox) findViewById(R.id.statusCheckBox);
 
         sendButton = (Button) findViewById(R.id.sendButton);
         attendanceButton = (Button) findViewById(R.id.attendanceButton);

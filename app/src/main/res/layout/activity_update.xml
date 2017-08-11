@@ -55,40 +55,11 @@
             android:layout_marginTop="@dimen/activity_vertical_margin"
             android:textColor="#000000"/>
 
-
-        <LinearLayout
-            android:id="@+id/statusLinearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timmingEditText"
-            android:orientation="horizontal"
-            android:background="@drawable/edittext_border"
-            android:layout_marginTop="@dimen/activity_vertical_margin">
-            <TextView
-                android:textSize="20sp"
-                android:layout_width="0dp"
-                android:layout_height="35sp"
-                android:text="Status : "
-                android:layout_weight="1"
-                android:paddingLeft="@dimen/activity_horizontal_margin"
-                android:gravity="center_vertical"
-                android:textColor="#000000"/>
-            <TextView
-                android:id="@+id/status"
-                android:layout_width="0dp"
-                android:layout_height="35sp"
-                android:textSize="20sp"
-                android:layout_weight="1"
-                android:text="Not Completed"
-                android:gravity="center"
-                android:textColor="#000000"
-                android:background="#FF0000"/>
-        </LinearLayout>
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/statusLinearLayout"
+            android:layout_below="@+id/timmingEditText"
             android:background="@drawable/edittext_border"
             android:layout_marginTop="@dimen/activity_vertical_margin"/>
 

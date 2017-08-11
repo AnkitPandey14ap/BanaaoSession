@@ -11,6 +11,7 @@ public class SessionInformation {
     public String name;
     public String location;
     public String timeFrom;
+    public String date;
     public String timeTo;
     public boolean completed;
 
@@ -20,19 +21,18 @@ public class SessionInformation {
     public HashMap<String, String> trainer = new HashMap<String, String>();
 
     public SessionInformation(String name, String location,String timeFrom, String timeTo,
-                              HashMap<String, String> studentsName, HashMap<String, UserData> topic, HashMap<String, String> trainer) {
+                              HashMap<String, String> studentsName, HashMap<String, UserData> topic, HashMap<String, String> trainer,String date) {
         this.name = name;
         this.location = location;
         //this.topic = topic;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
+        this.date= date;
 
 
         this.studentsName = studentsName;
 
-
         this.topic = topic;
-
 
         this.trainer = trainer;
 

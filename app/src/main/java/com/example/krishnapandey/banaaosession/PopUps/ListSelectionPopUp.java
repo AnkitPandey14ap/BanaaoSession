@@ -19,6 +19,7 @@ import com.example.krishnapandey.banaaosession.Adapters.MyPopUpAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.MySessionData;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
+import com.example.krishnapandey.banaaosession.DataClasses.StudentInfo;
 import com.example.krishnapandey.banaaosession.DataClasses.UserData;
 import com.example.krishnapandey.banaaosession.DataClasses.UserInformation;
 import com.example.krishnapandey.banaaosession.R;
@@ -136,6 +137,14 @@ public class ListSelectionPopUp extends AppCompatActivity {
                             list.add(new UserData(false, userInfo.name));
                             Log.i("Ankit", String.valueOf(list));
                         }
+                    }else if(caller.equals("student")){
+                        Iterable<DataSnapshot> children = dataSnapshot.getChildren();
+                        for (DataSnapshot child : children) {
+                            StudentInfo studentInfo = child.getValue(StudentInfo.class);
+                            list.add(new UserData(false, studentInfo.name));
+                            Log.i("Ankit", String.valueOf(list));
+                        }
+
                     } else {
                         HashMap<String,String> map= (HashMap<String, String>) dataSnapshot.getValue();
                         map.keySet();
@@ -143,6 +152,7 @@ public class ListSelectionPopUp extends AppCompatActivity {
                             System.out.println("key : " + key);
                             list.add(new UserData(false,map.get(key)));
                         }
+
                     }
                     progressDialog.dismiss();
                     myPopUpAdapter.notifyDataSetChanged();

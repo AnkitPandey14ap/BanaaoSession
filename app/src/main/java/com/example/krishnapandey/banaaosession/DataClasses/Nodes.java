@@ -11,6 +11,7 @@ public class Nodes {
     public static String allstudents= "allstudents";
     public static String topic= "topic";
     public static String attendance= "attendance";
+    public static String studentsName= "studentsName";
 
 
 }
