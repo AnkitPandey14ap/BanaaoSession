@@ -28,10 +28,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MySessionActivityNew extends AppCompatActivity {
 
     private static final String T = "Ankit";
+    private static final String TAG = "Ankit";
     private ListView listView;
 //    private BottomNavigationView navigation;
     private ArrayList<String> list;
@@ -63,6 +65,8 @@ public class MySessionActivityNew extends AppCompatActivity {
                     SessionInformation sessionInformation = child.getValue(SessionInformation.class);
                     sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo,sessionInformation.date));
                 }
+                Log.i(TAG, "onDataChange: "+sessionList);
+
                 makeListView(sessionList);
 
             }
@@ -80,7 +84,8 @@ public class MySessionActivityNew extends AppCompatActivity {
                 Log.i(T,"clicked "+sessionList.get(position).getSessionName());
 
                 Intent intent=new Intent(MySessionActivityNew.this,UpdateActivity.class);
-                intent.putExtra("NAME", sessionList.get(position).getSessionName());
+//                intent.putExtra("NAME", sessionList.get(position).getDate()+sessionList.get(position).getSessionName());
+                intent.putExtra("NAME", sessionList.get(position).getDate());
                 startActivity(intent);
 
             }
@@ -89,11 +94,12 @@ public class MySessionActivityNew extends AppCompatActivity {
 
     }
 
+
     private void makeListView(ArrayList<MySessionData> list) {
         /*adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_list_item_1, android.R.id.text1, list);
         listView.setAdapter(adapter);*/
-
+        Collections.reverse(list);
         MySessionAdapter mySessionAdapter = new MySessionAdapter(sessionList, MySessionActivityNew.this);
         listView.setAdapter(mySessionAdapter);
         progressDialog.hide();

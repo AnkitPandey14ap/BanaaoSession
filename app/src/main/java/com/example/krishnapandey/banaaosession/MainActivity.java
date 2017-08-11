@@ -134,7 +134,7 @@ public class MainActivity extends AppCompatActivity
                 Log.i(T,"clicked "+sessionList.get(position).getSessionName());
 
                 Intent intent=new Intent(MainActivity.this,UpdateActivity.class);
-                intent.putExtra("NAME", sessionList.get(position).getSessionName());
+                intent.putExtra("NAME", sessionList.get(position).getDate()+sessionList.get(position).getSessionName());
                 startActivity(intent);
 
             }

@@ -298,7 +298,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
 //                Toast.makeText(NewSessionBottomActivity.this, "Date: "+i+i1+i2, Toast.LENGTH_SHORT).show();
                 input_date = (TextView) findViewById(R.id.input_date);
                 input_date.setText(i2+"/"+i1+"/"+i);
-                sessionDate = i2+"/"+i1+"/"+i;
+                sessionDate = i2+"-"+i1+"-"+i;
             }
         },year,month,date);//Yes 24 hour time
         mTimePicker.setTitle("Select Time");
@@ -355,8 +355,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                 SessionInformation sessionInformation = new SessionInformation(name, location, time_from, time_to, studentList, topicHashMap, trainerList,sessionDate);
                 Log.i("Ankit", studentList.size() + " " + topicList.size() + " " + trainerList.size());
-                //getDatabaseReference().child("dfdsf").child("hello").setValue("data");
-                getDatabaseReference().child(Nodes.session).child(sessionInformation.name).setValue(sessionInformation);
+                getDatabaseReference().child(Nodes.session).child(sessionInformation.date+sessionInformation.name).setValue(sessionInformation);
                 progressDialog.hide();
 
                 Toast.makeText(NewSessionBottomActivity.this, "succesfull", Toast.LENGTH_SHORT).show();
