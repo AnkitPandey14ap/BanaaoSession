@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.DataClasses.UserInformation;
+import com.example.krishnapandey.banaaosession.MainActivity;
 import com.example.krishnapandey.banaaosession.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
@@ -151,7 +152,7 @@ public class RegisterActivity extends AppCompatActivity {
                                     Toast.LENGTH_SHORT).show();
                                     progressDialog.hide();
                         } else {
-                            startActivity(new Intent(RegisterActivity.this,ProfileActivity.class));
+                            startActivity(new Intent(RegisterActivity.this,MainActivity.class));
                             saveUserInformation();
                             finish();
                         }

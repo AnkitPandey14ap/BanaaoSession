@@ -6,13 +6,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.example.krishnapandey.banaaosession.Activities.MySessionActivityNew;
 import com.example.krishnapandey.banaaosession.Activities.NewSessionBottomActivity;
-import com.example.krishnapandey.banaaosession.Adapters.MySessionAdapter;
 import com.example.krishnapandey.banaaosession.Adapters.StudentAdapter;
-import com.example.krishnapandey.banaaosession.DataClasses.MySessionData;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
-import com.example.krishnapandey.banaaosession.DataClasses.SessionInformation;
 import com.example.krishnapandey.banaaosession.DataClasses.StudentInfo;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;

@@ -5,10 +5,6 @@
             android:id="@+id/nav_workshop"
             android:icon="@drawable/workshop_icon"
             android:title="Workshop" />
-        <item
-            android:id="@+id/nav_workshop_complete"
-            android:icon="@drawable/workshop_icon"
-            android:title="Completed Workshop" />
 
         <item
             android:id="@+id/nav_students"

@@ -8,7 +8,6 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
-import com.example.krishnapandey.banaaosession.Activities.MySessionActivityNew;
 import com.example.krishnapandey.banaaosession.DataClasses.MySessionData;
 import com.example.krishnapandey.banaaosession.R;
 

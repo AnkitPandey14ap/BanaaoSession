@@ -87,7 +87,6 @@ public class LoginActivity extends AppCompatActivity {
                 if (user != null) {
                     // User is signed in
                     Log.i(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
-                    //startActivity(new Intent(LoginActivity.this,ProfileActivity.class));
                     startActivity(new Intent(LoginActivity.this,MainActivity.class));
                     finish();
                 } else {

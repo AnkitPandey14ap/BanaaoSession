@@ -52,7 +52,7 @@ public class AttendancePopUp extends AppCompatActivity {
         }
 
 //        getRef().child(Nodes.attendance).child(dateFormat.format(date)).setValue(map);
-        getRef().child(Nodes.attendance).child(dateFormat.format(date)).setValue(map, new DatabaseReference.CompletionListener() {
+        getRef().child(Nodes.attendance).setValue(map, new DatabaseReference.CompletionListener() {
             public void onComplete(DatabaseError databaseError, DatabaseReference ref) {
                 if (databaseError != null) {
                     Toast.makeText(AttendancePopUp.this, "Data could not be saved " + databaseError.getMessage(), Toast.LENGTH_SHORT).show();
@@ -90,7 +90,7 @@ public class AttendancePopUp extends AppCompatActivity {
         sessionName = getIntent().getStringExtra("NAME");
         Log.i("Ankit", "name " + sessionName);
         initialisze();
-        getRef().child("studentsName").addValueEventListener(new ValueEventListener() {
+        getRef().child(Nodes.studentsName).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 HashMap<String, String> map = (HashMap<String, String>) dataSnapshot.getValue();

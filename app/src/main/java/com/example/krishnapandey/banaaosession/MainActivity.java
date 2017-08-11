@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
@@ -26,9 +25,7 @@ import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.Activities.CompletedSessionActivity;
 import com.example.krishnapandey.banaaosession.Activities.LoginActivity;
-import com.example.krishnapandey.banaaosession.Activities.MySessionActivityNew;
 import com.example.krishnapandey.banaaosession.Activities.NewSessionBottomActivity;
-import com.example.krishnapandey.banaaosession.Activities.ProfileActivity;
 import com.example.krishnapandey.banaaosession.Activities.UpdateActivity;
 import com.example.krishnapandey.banaaosession.Adapters.MySessionAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.MySessionData;
@@ -41,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -116,6 +114,7 @@ public class MainActivity extends AppCompatActivity
 
                     sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo,sessionInformation.date));
                 }
+                Collections.reverse(sessionList);
                 makeListView(sessionList);
 
             }
@@ -189,10 +188,6 @@ public class MainActivity extends AppCompatActivity
 
         } else if (id == R.id.nav_students) {
             startActivity(new Intent(MainActivity.this,StudentListActivity.class));
-
-        }else if (id == R.id.nav_workshop_complete) {
-            startActivity(new Intent(MainActivity.this,CompletedSessionActivity.class));
-
 
         }else if (id == R.id.nav_manage) {
 

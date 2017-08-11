@@ -267,7 +267,7 @@ public class NewSessionBottomActivity extends AppCompatActivity {
                 String minutes= String.valueOf(selectedMinute);
                 if(selectedHour<10) {
                     hour = "0" + selectedHour;
-                }if(selectedMinute<10) {
+                }if(selectedMinute<0) {
                     minutes = "0" + selectedMinute;
                 }
 

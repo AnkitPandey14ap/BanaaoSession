@@ -15,7 +15,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.krishnapandey.banaaosession.Activities.NewSessionBottomActivity;
-import com.example.krishnapandey.banaaosession.Activities.ProfileActivity;
 import com.example.krishnapandey.banaaosession.Adapters.MyPopUpAdapter;
 import com.example.krishnapandey.banaaosession.DataClasses.Nodes;
 import com.example.krishnapandey.banaaosession.DataClasses.UserData;
@@ -50,8 +49,7 @@ public class TopicPopUp extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.navigation_home:
-                    /*startActivity(new Intent(TopicPopUp.this, ProfileActivity.class));
-                    finish();*/
+
                     return true;
                 case R.id.navigation_dashboard:
                     saveList();
