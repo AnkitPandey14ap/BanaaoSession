@@ -65,7 +65,7 @@ public class CompletedSessionActivity extends AppCompatActivity {
                 for (DataSnapshot child : children ) {
                     SessionInformation sessionInformation = child.getValue(SessionInformation.class);
                     if (sessionInformation.completed) {
-                        sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo));
+                        sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo,sessionInformation.date));
                     }
                 }
                 makeListView(sessionList);

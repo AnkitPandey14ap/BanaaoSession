@@ -8,11 +8,13 @@ public class MySessionData {
     String sessionName;
     String timeFrom;
     String timeTo;
+    String date;
 
-    public MySessionData(String sessionName, String timeFrom,String timeTo) {
+    public MySessionData(String sessionName, String timeFrom,String timeTo,String date) {
         this.sessionName = sessionName;
         this.timeFrom = timeFrom;
         this.timeTo = timeTo;
+        this.date= date;
     }
 
 
@@ -37,8 +39,14 @@ public class MySessionData {
     public String getTimeFrom() {
         return timeFrom;
     }
+    public String getDate() {
+        return date;
+    }
 
     public void setTimeFrom(String timeFrom) {
         this.timeFrom = timeFrom;
+    }
+    public void setDate(String date) {
+        this.date = date;
     }
 }

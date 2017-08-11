@@ -22,6 +22,13 @@
             android:background="#ffffff">
         </View>
         <TextView
+            android:id="@+id/dateTextView"
+            android:text="DD/MM/YY"
+            android:textSize="16sp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#000000"/>
+        <TextView
             android:id="@+id/timming"
             android:text="From :       To :     "
             android:textSize="16sp"

@@ -81,7 +81,7 @@ public class MySessionActivityNew extends AppCompatActivity {
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children ) {
                     SessionInformation sessionInformation = child.getValue(SessionInformation.class);
-                    sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo));
+                    sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo,sessionInformation.date));
                 }
                 makeListView(sessionList);
 
