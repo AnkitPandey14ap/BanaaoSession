@@ -40,7 +40,7 @@
             <TextView
                 android:id="@+id/topicEditText"
                 android:textSize="20sp"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="35sp"
                 android:text="Topics"
                 android:textColor="#000000"/>
@@ -75,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Write here..."
+            android:lines="4"
             android:layout_below="@+id/buttonLoadPicture"
             android:background="@drawable/edittext_border"
             android:minHeight="60dp"/>

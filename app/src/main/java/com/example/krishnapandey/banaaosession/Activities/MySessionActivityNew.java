@@ -39,26 +39,6 @@ public class MySessionActivityNew extends AppCompatActivity {
 
     ArrayList<MySessionData> sessionList = new ArrayList<>();
     private ProgressDialog progressDialog;
-/*
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
-                    finish();
-                    //sessionNameEditText.setText(R.string.title_home);
-                    return true;
-                case R.id.navigation_dashboard:
-                    //sessionNameEditText.setText(R.string.title_dashboard);
-                    return true;
-
-            }
-            return false;
-        }
-
-    };*/
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

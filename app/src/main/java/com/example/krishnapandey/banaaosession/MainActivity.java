@@ -106,6 +106,14 @@ public class MainActivity extends AppCompatActivity
                 Iterable<DataSnapshot> children = dataSnapshot.getChildren();
                 for (DataSnapshot child : children ) {
                     SessionInformation sessionInformation = child.getValue(SessionInformation.class);
+
+
+
+
+
+
+
+
                     sessionList.add(new MySessionData(sessionInformation.name, sessionInformation.timeFrom, sessionInformation.timeTo,sessionInformation.date));
                 }
                 makeListView(sessionList);
@@ -149,13 +157,7 @@ public class MainActivity extends AppCompatActivity
             super.onBackPressed();
         }
     }
-/*
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }*/
+
 
 
     @Override
@@ -177,22 +179,6 @@ public class MainActivity extends AppCompatActivity
     }
 
 
-/*
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }*/
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -202,6 +188,7 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_workshop) {
 
         } else if (id == R.id.nav_students) {
+            startActivity(new Intent(MainActivity.this,StudentListActivity.class));
 
         }else if (id == R.id.nav_workshop_complete) {
             startActivity(new Intent(MainActivity.this,CompletedSessionActivity.class));
@@ -210,6 +197,18 @@ public class MainActivity extends AppCompatActivity
         }else if (id == R.id.nav_manage) {
 
         } else if (id == R.id.nav_send) {
+
+            Intent i = new Intent(Intent.ACTION_SEND);
+            i.setType("message/rfc822");
+            i.putExtra(Intent.EXTRA_EMAIL  , new String[]{"prem.sagar@banaao.co.in"});
+//        i.putExtra(Intent.EXTRA_EMAIL  , arrayList);
+            i.putExtra(Intent.EXTRA_SUBJECT, "Banaao Workshop");
+//            i.putExtra(Intent.EXTRA_TEXT   , feedbackEditText.getText().toString());
+            try {
+                startActivity(Intent.createChooser(i, "Send mail..."));
+            } catch (android.content.ActivityNotFoundException ex) {
+                Toast.makeText(MainActivity.this, "There are no email clients installed.", Toast.LENGTH_SHORT).show();
+            }
 
         } else if (id == R.id.log_out) {
 
