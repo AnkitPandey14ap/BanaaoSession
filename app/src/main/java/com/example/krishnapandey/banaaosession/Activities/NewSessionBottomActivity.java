@@ -296,11 +296,21 @@ public class NewSessionBottomActivity extends AppCompatActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int i, int i1, int i2) {
 //                Toast.makeText(NewSessionBottomActivity.this, "Date: "+i+i1+i2, Toast.LENGTH_SHORT).show();
+                String date= String.valueOf(i);
+                String month= String.valueOf(i1);
+
+                if(i<10){
+                    date = "0" + i;
+                }
+                if(i1<10){
+                    month = "0" + i1;
+                }
+
                 input_date = (TextView) findViewById(R.id.input_date);
-                input_date.setText(i2+"/"+i1+"/"+i);
-                sessionDate = i2+"-"+i1+"-"+i;
+                input_date.setText(i2+"/"+month+"/"+date);
+                sessionDate = i2+"-"+month+"-"+date;
             }
-        },year,month,date);//Yes 24 hour time
+        },year,month,date);
         mTimePicker.setTitle("Select Time");
         mTimePicker.show();
 

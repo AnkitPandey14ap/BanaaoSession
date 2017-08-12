@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
@@ -148,7 +149,7 @@ public class MainActivity extends AppCompatActivity
 
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
-            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+            public boolean onItemLongClick(AdapterView<?> adapterView, final View view, final int i, long l) {
 
                 AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
                 alertDialog.setTitle("Delete");
@@ -157,26 +158,36 @@ public class MainActivity extends AppCompatActivity
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
 
+
                                 DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(Nodes.session);
-                                ref.child(sessionList.get(i).getDate()+sessionList.get(i).getSessionName()).removeValue();
-
-                                /*DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
-                                Query applesQuery = ref.child(Nodes.session).orderByChild(Nodes.session).equalTo(sessionList.get(i).getSessionName());
-
-                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                final DatabaseReference finalRef = ref;
+                                ref.child(sessionList.get(i).getDate() + sessionList.get(i).getSessionName()).addValueEventListener(new ValueEventListener() {
                                     @Override
                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
-                                            appleSnapshot.getRef().removeValue();
-                                        }
+                                        SessionInformation sessionInformation= dataSnapshot.getValue(SessionInformation.class);
+                                        finalRef.child(sessionList.get(i).getDate() + sessionList.get(i).getSessionName()).removeValue();
                                     }
 
                                     @Override
                                     public void onCancelled(DatabaseError databaseError) {
-                                        Log.e(TAG, "onCancelled", databaseError.toException());
-                                    }
-                                });*/
 
+                                    }
+                                });
+
+                               // Snackbar.make(view, "Session Deleted", Snackbar.LENGTH_LONG).setAction("UNDO", null).show();
+                                /*Snackbar snackbar = Snackbar
+                                        .make(view, "Session Deleted", Snackbar.LENGTH_LONG).setAction("UNDO",new View.OnClickListener(){
+
+                                            @Override
+                                            public void onClick(View view) {
+                                                Toast.makeText(MainActivity.this, "clicked", Toast.LENGTH_SHORT).show();
+//                                                finalRef.child(sessionInformation[0].date+sessionInformation[0].name).push().setValue(sessionInformation[0]);
+
+                                            }
+                                        });
+
+                                snackbar.show();
+*/
                                 dialog.dismiss();
                             }
                         });
