@@ -1,11 +1,13 @@
 package com.example.krishnapandey.banaaosession;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.ShareActionProvider;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +21,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,6 +38,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -44,6 +49,7 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private static final String T = "Ankit";
+    private static final String TAG = "Ankit";
     private ListView listView;
     //    private BottomNavigationView navigation;
     private ArrayList<String> list;
@@ -136,6 +142,57 @@ public class MainActivity extends AppCompatActivity
                 intent.putExtra("NAME", sessionList.get(position).getDate()+sessionList.get(position).getSessionName());
                 startActivity(intent);
 
+            }
+        });
+
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, final int i, long l) {
+
+                AlertDialog alertDialog = new AlertDialog.Builder(MainActivity.this).create();
+                alertDialog.setTitle("Delete");
+                alertDialog.setMessage("Are you sure, you wanna delete this session");
+                alertDialog.setButton(AlertDialog.BUTTON_NEUTRAL, "YES",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+
+                                DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child(Nodes.session);
+                                ref.child(sessionList.get(i).getDate()+sessionList.get(i).getSessionName()).removeValue();
+
+                                /*DatabaseReference ref = FirebaseDatabase.getInstance().getReference();
+                                Query applesQuery = ref.child(Nodes.session).orderByChild(Nodes.session).equalTo(sessionList.get(i).getSessionName());
+
+                                applesQuery.addListenerForSingleValueEvent(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                        for (DataSnapshot appleSnapshot: dataSnapshot.getChildren()) {
+                                            appleSnapshot.getRef().removeValue();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(DatabaseError databaseError) {
+                                        Log.e(TAG, "onCancelled", databaseError.toException());
+                                    }
+                                });*/
+
+                                dialog.dismiss();
+                            }
+                        });
+                alertDialog.setButton(AlertDialog.BUTTON_NEGATIVE, "NO",
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                alertDialog.show();
+
+
+
+
+                return true;
             }
         });
 
